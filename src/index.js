@@ -2,12 +2,11 @@ import './styles/main.scss';
 
 async function hamada() {
   const body = document.body
-  const ACCESS_KEY = process.env.ACCESS_KEY
   const data = await fetch(
-    'https://api.unsplash.com/photos/', {
+    'https://api.unsplash.com/photos/random?count=30&collections=4369173', {
       method: 'GET',
       headers: {
-        Authorization: `Client-ID ${ACCESS_KEY}`
+        Authorization: `Client-ID ${process.env.ACCESS_KEY}`
       }
     }
   );
