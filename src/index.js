@@ -18,6 +18,16 @@ async function hamada() {
     img.setAttribute('src', `${url}`)
     body.appendChild(img)
   });
+  
+  const moreBtn = document.createElement('button');
+  moreBtn.style.display = 'block'
+  moreBtn.innerText = 'More'
+  body.appendChild(moreBtn)
+  moreBtn.addEventListener('click', () => {
+    hamada()
+    moreBtn.style.display = 'none'
+  })
 }
+
 
 hamada();

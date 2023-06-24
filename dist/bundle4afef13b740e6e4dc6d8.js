@@ -559,13 +559,13 @@ function hamada() {
 }
 function _hamada() {
   _hamada = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var body, data, res;
+    var body, data, res, moreBtn;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           body = document.body;
           _context.next = 3;
-          return fetch('https://api.unsplash.com/photos/random?count=30', {
+          return fetch('https://api.unsplash.com/photos/random?count=30&collections=4369173', {
             method: 'GET',
             headers: {
               Authorization: "Client-ID ".concat("xL89z7hn8F3AhY7j8f23z2mNIR9qGyU3338Yw4sdjI4")
@@ -584,7 +584,15 @@ function _hamada() {
             img.setAttribute('src', "".concat(url));
             body.appendChild(img);
           });
-        case 9:
+          moreBtn = document.createElement('button');
+          moreBtn.style.display = 'block';
+          moreBtn.innerText = 'More';
+          body.appendChild(moreBtn);
+          moreBtn.addEventListener('click', function () {
+            hamada;
+            moreBtn.style.display = 'none';
+          });
+        case 14:
         case "end":
           return _context.stop();
       }
@@ -597,4 +605,4 @@ hamada();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundled39d2914e7891eafe440.js.map
+//# sourceMappingURL=bundle4afef13b740e6e4dc6d8.js.map
