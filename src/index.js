@@ -1,17 +1,13 @@
 import './styles/main.scss';
 import { api } from './modules/api';
+import { ui } from './modules/ui';
 
 async function getData() {
   const body = document.body;
   
   await api.getRandomPhotos();
-  api.randomPhotosAPI.map((e) => {
-    const url = e.urls.regular;
-    const img = document.createElement('img');
-    img.setAttribute('src', `${url}`);
-    body.appendChild(img);
-  });
-
+  ui.appendPhotos(api.randomPhotosAPI)
+  
   const moreBtn = document.createElement('button');
   moreBtn.style.display = 'block';
   moreBtn.innerText = 'More';
