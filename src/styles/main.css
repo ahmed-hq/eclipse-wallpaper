@@ -39,20 +39,19 @@ h2 {
   z-index: -1;
 }
 
-#black-overlay {
+#black-overlay, #black_gradient-overlay {
   position: absolute;
   z-index: -1;
-  background-color: hsl(0, 0%, 4%);
   width: 100%;
   height: 100%;
+}
+
+#black-overlay {
+  background-color: hsl(0, 0%, 4%);
   opacity: 85%;
 }
 
 #black_gradient-overlay {
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
   background: -webkit-linear-gradient(90deg, hsl(0, 0%, 4%), hsla(0, 0%, 88%, 0));
 }
 
@@ -68,4 +67,14 @@ h2 {
   background: -webkit-linear-gradient(60deg, hsl(0, 0%, 88%), hsla(0, 0%, 88%, 0));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.main_cta {
+  border: 1px solid;
+  border-radius: 160px;
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }/*# sourceMappingURL=main.css.map */

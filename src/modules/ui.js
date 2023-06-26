@@ -63,15 +63,11 @@ class UI {
     const mainCtaWrapper = this.element.divCreator("class", "main_cta-wrapper", heroSection);
 
     const mainCta = this.element.divCreator("class", "main_cta", mainCtaWrapper);
-    mainCta.style.border = "1px solid";
-    mainCta.style.borderRadius = "160px";
-    mainCta.style.width = "10rem";
-    mainCta.style.height = "10rem";
-    mainCta.style.display = "flex";
-    mainCta.style.justifyContent = "center";
-    mainCta.style.alignItems = "center";
-
     this.element.imgCreator(ctaArrow, mainCta);
+  }
+
+  createGallerySection(){
+    
   }
 
   appendPhotos(data) {
