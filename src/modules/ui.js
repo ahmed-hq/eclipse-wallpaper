@@ -30,6 +30,7 @@ class UI {
     this.element = new Element();
     this.mainWrapper = this.element.divCreator("class", "main-wrapper", document.body);
     this.gallerySection = null;
+    this.navbar = null;
     this.galleryWrapper = null;
   }
   createHeroSection() {
@@ -69,24 +70,28 @@ class UI {
   }
 
   createNavbar() {
-    const navbar = this.element.divCreator("class", "navbar", this.gallerySection);
-    const logoWrapper = this.element.divCreator('class', 'logo-wrapper', navbar);
+    this.navbar = this.element.divCreator("class", "navbar", this.gallerySection);
+    const logoWrapper = this.element.divCreator('class', 'logo-wrapper', this.navbar);
     this.element.imgCreator(logo, logoWrapper)
-
-
-    
   }
   createGallerySection() {
     this.gallerySection = this.element.sectionCreator("class", "gallery-section", this.mainWrapper);
     this.createNavbar()
     const pagePadding = this.element.divCreator("class", "page-padding", this.gallerySection);
     this.galleryWrapper = this.element.divCreator("class", "gallery-wrapper", pagePadding);
+
+    window.addEventListener('scroll', (e) => {
+      if(window.scrollY > 1000) {
+        this.navbar.style.display = 'flex'
+      } else {
+        this.navbar.style.display = 'none'
+      }
+    })
   }
 
 
   appendPhotos(data) {
     data.map((photo) => {
-      console.log(data);
       const url = photo.urls.regular;
 
       const imgWrapper = this.element.divCreator("class", "img-wrapper", this.galleryWrapper);

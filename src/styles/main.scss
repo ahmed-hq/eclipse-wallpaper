@@ -30,12 +30,19 @@ $whiteColor: hsla(0, 0%, 98%, 1);
 }
 
 body {
+  width: 100vw;
   background-color: $blackColor;
   color: $whiteColor;
   font-family: "Montserrat", sans-serif;
   text-align: center;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar{
+    width: 0px;
+  }
 }
+
+
 
 h1 {
   font-size: 11rem;
@@ -105,6 +112,7 @@ h2 {
   width: 100vw;
   height: 3.375rem;
   background-color: $tertiaryBlackColor;
+  
   @include flexCenter()
 }
 
