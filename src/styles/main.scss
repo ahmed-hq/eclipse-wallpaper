@@ -1,6 +1,9 @@
 $blackColor: hsla(0, 0%, 4%, 1);
 $whiteColor: hsla(0, 0%, 98%, 1);
 
+@mixin heroLinearGradient {
+  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));
+}
 @mixin displayLinearGradient {
   background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));
   -webkit-background-clip: text;
@@ -42,12 +45,36 @@ h2 {
 }
 
 .hero-section {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 6.62rem;
   height: 100vh;
   width: 100vw;
   @include flexCenter();
+}
+
+#hero-video {
+  position: absolute;
+  z-index: -1;
+}
+
+#black-overlay {
+  position: absolute;
+  z-index: -1;
+  background-color: $blackColor;
+  width: 100%;
+  height: 100%;
+  opacity: 85%;
+}
+
+#black_gradient-overlay {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  @include heroLinearGradient()
 }
 
 #hero-display {

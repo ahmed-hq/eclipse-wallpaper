@@ -32,19 +32,20 @@ class UI {
   createHeroSection() {
     const heroSection = this.element.sectionCreator("class", "hero-section", this.mainWrapper);
 
-    const heroBgVideoWrapper = document.createElement('video');
+    const heroBgVideoWrapper = document.createElement("video");
     heroBgVideoWrapper.autoplay = true;
     heroBgVideoWrapper.muted = true;
     heroBgVideoWrapper.loop = true;
-    heroBgVideoWrapper.setAttribute('id', 'hero-video')
+    heroBgVideoWrapper.setAttribute("id", "hero-video");
     heroSection.appendChild(heroBgVideoWrapper);
 
-    const heroBgVideoSrc = document.createElement('source');
-    heroBgVideoSrc.setAttribute('src', bGVideo)
-    heroBgVideoSrc.setAttribute('type', "video/mp4")
-    heroBgVideoWrapper.appendChild(heroBgVideoSrc)
+    const heroBgVideoSrc = document.createElement("source");
+    heroBgVideoSrc.setAttribute("src", bGVideo);
+    heroBgVideoSrc.setAttribute("type", "video/mp4");
+    heroBgVideoWrapper.appendChild(heroBgVideoSrc);
 
-
+    const blackOverlay = this.element.divCreator('id', 'black-overlay', heroSection)
+    const blackGradientOverlay = this.element.divCreator('id', 'black_gradient-overlay', heroSection)
 
 
     const heroContentWrapper = this.element.divCreator("class", "hero_content-wrapper", heroSection);
@@ -66,14 +67,11 @@ class UI {
     mainCta.style.borderRadius = "160px";
     mainCta.style.width = "10rem";
     mainCta.style.height = "10rem";
-    mainCta.style.display = 'flex'
-    mainCta.style.justifyContent = 'center'
-    mainCta.style.alignItems = 'center'
+    mainCta.style.display = "flex";
+    mainCta.style.justifyContent = "center";
+    mainCta.style.alignItems = "center";
 
-
-
-    this.element.imgCreator(ctaArrow, mainCta)
-    this.element.imgCreator(bGVideo, mainCta)
+    this.element.imgCreator(ctaArrow, mainCta);
   }
 
   appendPhotos(data) {
