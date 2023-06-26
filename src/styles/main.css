@@ -98,4 +98,17 @@ h2 {
   aspect-ratio: 16/9;
   border-radius: 30px;
   border: 3px solid hsl(0, 0%, 6%);
+}
+
+.load_more-btn {
+  background-color: hsl(0, 0%, 15%);
+  border: none;
+  border-radius: 16px;
+  color: hsl(0, 0%, 98%);
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  font-weight: 100;
+  text-align: center;
+  padding-top: 1.7rem;
+  padding-bottom: 1.7rem;
 }/*# sourceMappingURL=main.css.map */

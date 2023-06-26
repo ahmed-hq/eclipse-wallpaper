@@ -94,14 +94,14 @@ class UI {
     Btn.setAttribute('class', 'load_more-btn')
     Btn.style.display = "block";
     Btn.innerText = "Load More";
-    this.mainWrapper.appendChild(Btn);
+    this.galleryWrapper.appendChild(Btn);
 
     Btn.addEventListener("click", async () => {
       // getData();
       await api.getRandomPhotos();
       this.appendPhotos(api.randomPhotosAPI);
       Btn.style.display = "none";
-      this.appendLoadBtn();
+      this.createLoadBtn();
     });
   }
 }
