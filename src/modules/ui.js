@@ -91,6 +91,7 @@ class UI {
 
   createLoadBtn() {
     const Btn = document.createElement("button");
+    Btn.setAttribute('class', 'load_more-btn')
     Btn.style.display = "block";
     Btn.innerText = "Load More";
     this.mainWrapper.appendChild(Btn);
