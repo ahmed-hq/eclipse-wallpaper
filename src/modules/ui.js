@@ -85,6 +85,7 @@ class UI {
       const imgWrapper = this.element.divCreator('class', 'img-wrapper', this.galleryWrapper);
       imgWrapper.style.background = `url(${url}) no-repeat`
       imgWrapper.style.backgroundSize = 'cover'
+      imgWrapper.style.backgroundPosition = 'center'
     });
   }
 

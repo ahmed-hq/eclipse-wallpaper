@@ -79,7 +79,22 @@ h2 {
   align-items: center;
 }
 
-.img-wrapper {
+.gallery-section {
   width: 100vw;
-  height: 100vh;
+}
+
+.page-padding {
+  padding: 7.5rem 4rem;
+}
+
+.gallery-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.img-wrapper {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 30px;
 }/*# sourceMappingURL=main.css.map */
