@@ -1,6 +1,7 @@
 import { api } from "./api";
 import ctaArrow from "../assets/cta-arrow.svg";
 import bGVideo from "../assets/eclipse-bg-v2.mp4";
+import logo from "../assets/logo.svg";
 
 class Element {
   divCreator(attribute, attName, parent) {
@@ -28,6 +29,7 @@ class UI {
   constructor() {
     this.element = new Element();
     this.mainWrapper = this.element.divCreator("class", "main-wrapper", document.body);
+    this.gallerySection = null;
     this.galleryWrapper = null;
   }
   createHeroSection() {
@@ -45,9 +47,8 @@ class UI {
     heroBgVideoSrc.setAttribute("type", "video/mp4");
     heroBgVideoWrapper.appendChild(heroBgVideoSrc);
 
-    const blackOverlay = this.element.divCreator('id', 'black-overlay', heroSection)
-    const blackGradientOverlay = this.element.divCreator('id', 'black_gradient-overlay', heroSection)
-
+    const blackOverlay = this.element.divCreator("id", "black-overlay", heroSection);
+    const blackGradientOverlay = this.element.divCreator("id", "black_gradient-overlay", heroSection);
 
     const heroContentWrapper = this.element.divCreator("class", "hero_content-wrapper", heroSection);
 
@@ -67,31 +68,37 @@ class UI {
     this.element.imgCreator(ctaArrow, mainCta);
   }
 
-  createGallerySection(){
-    const gallerySection = this.element.sectionCreator("class", "gallery-section", this.mainWrapper);
-    const pagePadding = this.element.divCreator("class", "page-padding", gallerySection);
-    this.galleryWrapper = this.element.divCreator("class", "gallery-wrapper", pagePadding);
+  createNavbar() {
+    const navbar = this.element.divCreator("class", "navbar", this.gallerySection);
+    const logoWrapper = this.element.divCreator('class', 'logo-wrapper', navbar);
+    this.element.imgCreator(logo, logoWrapper)
 
 
-
+    
   }
+  createGallerySection() {
+    this.gallerySection = this.element.sectionCreator("class", "gallery-section", this.mainWrapper);
+    this.createNavbar()
+    const pagePadding = this.element.divCreator("class", "page-padding", this.gallerySection);
+    this.galleryWrapper = this.element.divCreator("class", "gallery-wrapper", pagePadding);
+  }
+
 
   appendPhotos(data) {
     data.map((photo) => {
-      console.log(data)
+      console.log(data);
       const url = photo.urls.regular;
-      
 
-      const imgWrapper = this.element.divCreator('class', 'img-wrapper', this.galleryWrapper);
-      imgWrapper.style.background = `url(${url}) no-repeat`
-      imgWrapper.style.backgroundSize = 'cover'
-      imgWrapper.style.backgroundPosition = 'center'
+      const imgWrapper = this.element.divCreator("class", "img-wrapper", this.galleryWrapper);
+      imgWrapper.style.background = `url(${url}) no-repeat`;
+      imgWrapper.style.backgroundSize = "cover";
+      imgWrapper.style.backgroundPosition = "center";
     });
   }
 
   createLoadBtn() {
     const Btn = document.createElement("button");
-    Btn.setAttribute('class', 'load_more-btn')
+    Btn.setAttribute("class", "load_more-btn");
     Btn.style.display = "block";
     Btn.innerText = "Load More";
     this.galleryWrapper.appendChild(Btn);
