@@ -1,5 +1,6 @@
 import { api } from "./api";
 import ctaArrow from "../assets/cta-arrow.svg";
+import bGVideo from "../assets/eclipse-bg-v2.mp4";
 
 class Element {
   divCreator(attribute, attName, parent) {
@@ -30,6 +31,22 @@ class UI {
   }
   createHeroSection() {
     const heroSection = this.element.sectionCreator("class", "hero-section", this.mainWrapper);
+
+    const heroBgVideoWrapper = document.createElement('video');
+    heroBgVideoWrapper.autoplay = true;
+    heroBgVideoWrapper.muted = true;
+    heroBgVideoWrapper.loop = true;
+    heroBgVideoWrapper.setAttribute('id', 'hero-video')
+    heroSection.appendChild(heroBgVideoWrapper);
+
+    const heroBgVideoSrc = document.createElement('source');
+    heroBgVideoSrc.setAttribute('src', bGVideo)
+    heroBgVideoSrc.setAttribute('type', "video/mp4")
+    heroBgVideoWrapper.appendChild(heroBgVideoSrc)
+
+
+
+
     const heroContentWrapper = this.element.divCreator("class", "hero_content-wrapper", heroSection);
 
     const heroDisplay = document.createElement("h1");
@@ -56,6 +73,7 @@ class UI {
 
 
     this.element.imgCreator(ctaArrow, mainCta)
+    this.element.imgCreator(bGVideo, mainCta)
   }
 
   appendPhotos(data) {
