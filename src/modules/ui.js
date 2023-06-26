@@ -28,6 +28,7 @@ class UI {
   constructor() {
     this.element = new Element();
     this.mainWrapper = this.element.divCreator("class", "main-wrapper", document.body);
+    this.galleryWrapper = null;
   }
   createHeroSection() {
     const heroSection = this.element.sectionCreator("class", "hero-section", this.mainWrapper);
@@ -67,15 +68,23 @@ class UI {
   }
 
   createGallerySection(){
-    
+    const gallerySection = this.element.sectionCreator("class", "gallery-section", this.mainWrapper);
+    const pagePadding = this.element.divCreator("class", "page-padding", gallerySection);
+    this.galleryWrapper = this.element.divCreator("class", "gallery-wrapper", pagePadding);
+
+
+
   }
 
   appendPhotos(data) {
     data.map((photo) => {
+      console.log(data)
       const url = photo.urls.regular;
-      const img = document.createElement("img");
-      img.setAttribute("src", `${url}`);
-      this.mainWrapper.appendChild(img);
+      
+
+      const imgWrapper = this.element.divCreator('class', 'img-wrapper', this.galleryWrapper);
+      imgWrapper.style.background = `url(${url}) no-repeat`
+      imgWrapper.style.backgroundSize = 'cover'
     });
   }
 
