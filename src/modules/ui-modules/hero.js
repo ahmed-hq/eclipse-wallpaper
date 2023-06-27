@@ -1,9 +1,10 @@
 import { element } from "./element";
+import { ui } from "../ui";
 import bGVideoSrc from "../../assets/eclipse-bg-v2.mp4";
 import ctaArrow from "../../assets/cta-arrow.svg";
 
-
 class Hero {
+  constructor() {}
 
   bgVideo(parent) {
     const myVideo = document.createElement("video");
@@ -19,12 +20,12 @@ class Hero {
     myVideo.appendChild(myVideoSrc);
   }
 
-  videoOverlay(parent){
+  videoOverlay(parent) {
     const blackOverlay = element.divCreator("id", "black-overlay", parent);
     const blackGradientOverlay = element.divCreator("id", "black_gradient-overlay", parent);
   }
 
-  displayHeader(parent){
+  displayHeader(parent) {
     const heroContentWrapper = element.divCreator("class", "hero_content-wrapper", parent);
 
     const heroDisplay = document.createElement("h1");
@@ -38,10 +39,14 @@ class Hero {
     heroContentWrapper.appendChild(heroSubDisplay);
   }
 
-  createMainCta(parent){
+  createMainCta(parent) {
     const mainCtaWrapper = element.divCreator("class", "main_cta-wrapper", parent);
     const mainCta = element.divCreator("class", "main_cta", mainCtaWrapper);
     element.imgCreator(ctaArrow, mainCta);
+
+    mainCta.addEventListener("click", () => {
+      ui.gallerySection.scrollIntoView({ behavior: "smooth" });
+    });
   }
 }
 
