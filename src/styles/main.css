@@ -89,6 +89,7 @@ h2 {
 
 .navbar {
   position: sticky;
+  z-index: 1;
   top: 0;
   width: 100vw;
   height: 3.375rem;
@@ -117,6 +118,7 @@ h2 {
 }
 
 .img_prop-wrapper {
+  position: relative;
   margin: 0rem auto;
   padding: 3rem;
   display: flex;

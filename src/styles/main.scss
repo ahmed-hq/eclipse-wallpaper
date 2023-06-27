@@ -108,6 +108,7 @@ h2 {
 
 .navbar {
   position: sticky;
+  z-index: 1;
   top: 0;
   width: 100vw;
   height: 3.375rem;
@@ -137,7 +138,7 @@ h2 {
 }
 
 .img_prop-wrapper{
-  // width: 100%;
+  position: relative;
   margin: 0rem auto;
   padding: 3rem;
   @include flexCenter();
@@ -145,6 +146,10 @@ h2 {
   gap: 5rem;
   align-self: end;
   
+}
+
+.download_cta-wrapper{
+
 }
 
 .load_more-btn{
