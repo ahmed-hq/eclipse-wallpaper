@@ -128,10 +128,20 @@ h2 {
 }
 
 .img-wrapper {
+  display: flex;
+  // flex-direction: column;
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 30px;
   border: 3px solid $secondaryBlackColor;
+}
+
+.img_prop-wrapper{
+  width: 100%;
+  @include flexCenter();
+  flex-direction: column;
+  align-self: end;
+  
 }
 
 .load_more-btn{

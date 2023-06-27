@@ -2,6 +2,8 @@ import { api } from "./api";
 import ctaArrow from "../assets/cta-arrow.svg";
 import bGVideo from "../assets/eclipse-bg-v2.mp4";
 import logo from "../assets/logo.svg";
+import downloadIcon from "../assets/download.svg";
+import upIcon from "../assets/up-arrow.svg"
 
 class Element {
   divCreator(attribute, attName, parent) {
@@ -71,24 +73,23 @@ class UI {
 
   createNavbar() {
     this.navbar = this.element.divCreator("class", "navbar", this.gallerySection);
-    const logoWrapper = this.element.divCreator('class', 'logo-wrapper', this.navbar);
-    this.element.imgCreator(logo, logoWrapper)
+    const logoWrapper = this.element.divCreator("class", "logo-wrapper", this.navbar);
+    this.element.imgCreator(logo, logoWrapper);
   }
   createGallerySection() {
     this.gallerySection = this.element.sectionCreator("class", "gallery-section", this.mainWrapper);
-    this.createNavbar()
+    this.createNavbar();
     const pagePadding = this.element.divCreator("class", "page-padding", this.gallerySection);
     this.galleryWrapper = this.element.divCreator("class", "gallery-wrapper", pagePadding);
 
-    window.addEventListener('scroll', (e) => {
-      if(window.scrollY > 1000) {
-        this.navbar.style.display = 'flex'
+    window.addEventListener("scroll", (e) => {
+      if (window.scrollY > 1000) {
+        this.navbar.style.display = "flex";
       } else {
-        this.navbar.style.display = 'none'
+        this.navbar.style.display = "none";
       }
-    })
+    });
   }
-
 
   appendPhotos(data) {
     data.map((photo) => {
@@ -98,6 +99,17 @@ class UI {
       imgWrapper.style.background = `url(${url}) no-repeat`;
       imgWrapper.style.backgroundSize = "cover";
       imgWrapper.style.backgroundPosition = "center";
+
+      
+      const imgPropWrapper = this.element.divCreator("class", "img_prop-wrapper", imgWrapper);
+
+      
+      const downloadCtaWrapper = this.element.divCreator("class", "main_cta-wrapper", imgWrapper);
+      const downloadCta = this.element.divCreator("class", "main_cta", imgPropWrapper);
+      this.element.imgCreator(downloadIcon, downloadCta);
+      
+      const imgPropOpenerWrapper = this.element.divCreator('class', 'img_prop_opener-wrapper', imgPropWrapper)
+      this.element.imgCreator(upIcon, imgPropOpenerWrapper)
     });
   }
 

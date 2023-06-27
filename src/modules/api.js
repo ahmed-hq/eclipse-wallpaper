@@ -14,6 +14,7 @@ class API {
       }
     );
     this.randomPhotosAPI = await res.json();
+    console.log(this.randomPhotosAPI)
   }
 }
 
