@@ -184,14 +184,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   hero: () => (/* binding */ hero)
 /* harmony export */ });
 /* harmony import */ var _element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./element */ "./src/modules/ui-modules/element.js");
-/* harmony import */ var _assets_eclipse_bg_v2_mp4__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/eclipse-bg-v2.mp4 */ "./src/assets/eclipse-bg-v2.mp4");
-/* harmony import */ var _assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/cta-arrow.svg */ "./src/assets/cta-arrow.svg");
+/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui */ "./src/modules/ui.js");
+/* harmony import */ var _assets_eclipse_bg_v2_mp4__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/eclipse-bg-v2.mp4 */ "./src/assets/eclipse-bg-v2.mp4");
+/* harmony import */ var _assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/cta-arrow.svg */ "./src/assets/cta-arrow.svg");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 
 
 
@@ -209,7 +211,7 @@ var Hero = /*#__PURE__*/function () {
       myVideo.setAttribute("id", "hero-video");
       parent.appendChild(myVideo);
       var myVideoSrc = document.createElement("source");
-      myVideoSrc.setAttribute("src", _assets_eclipse_bg_v2_mp4__WEBPACK_IMPORTED_MODULE_1__);
+      myVideoSrc.setAttribute("src", _assets_eclipse_bg_v2_mp4__WEBPACK_IMPORTED_MODULE_2__);
       myVideoSrc.setAttribute("type", "video/mp4");
       myVideo.appendChild(myVideoSrc);
     }
@@ -237,7 +239,12 @@ var Hero = /*#__PURE__*/function () {
     value: function createMainCta(parent) {
       var mainCtaWrapper = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "main_cta-wrapper", parent);
       var mainCta = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "main_cta", mainCtaWrapper);
-      _element__WEBPACK_IMPORTED_MODULE_0__.element.imgCreator(_assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_2__, mainCta);
+      _element__WEBPACK_IMPORTED_MODULE_0__.element.imgCreator(_assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__, mainCta);
+      mainCta.addEventListener("click", function () {
+        _ui__WEBPACK_IMPORTED_MODULE_1__.ui.gallerySection.scrollIntoView({
+          behavior: "smooth"
+        });
+      });
     }
   }]);
   return Hero;
@@ -385,7 +392,7 @@ var UI = /*#__PURE__*/function () {
         });
         imgPropWrapper.addEventListener("mouseout", function () {
           var rect = imgPropWrapper.getBoundingClientRect();
-          var isMouseOutsideArea = event.clientY < rect.top - 120;
+          var isMouseOutsideArea = event.clientX < rect.left - 0 || event.clientX > rect.right + 0 || event.clientY < rect.top - 125 || event.clientY > rect.bottom + 0;
           if (isMouseOutsideArea) {
             downloadCtaWrapper.style.display = "none";
           }
@@ -1275,4 +1282,4 @@ module.exports = __webpack_require__.p + "82df1286e25e518ffc6c.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundledd7f4d0f4ccd58fca14b.js.map
+//# sourceMappingURL=bundle6af1c9ca6f09c00a47b0.js.map
