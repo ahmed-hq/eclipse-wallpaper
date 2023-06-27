@@ -63,7 +63,7 @@ var API = /*#__PURE__*/function () {
               return fetch('https://api.unsplash.com/photos/random?count=30&collections=4369173', {
                 method: 'GET',
                 headers: {
-                  Authorization: "Client-ID ".concat("xL89z7hn8F3AhY7j8f23z2mNIR9qGyU3338Yw4sdjI4")
+                  Authorization: "Client-ID ".concat("CWVSfhbzc0It_GwiK0IyCz-vFUPECwYWh5Ff7x_vW-c")
                 }
               });
             case 3:
@@ -83,7 +83,18 @@ var API = /*#__PURE__*/function () {
         return _getRandomPhotos.apply(this, arguments);
       }
       return getRandomPhotos;
-    }()
+    }() // async downloadPhotos(id, imgSrc) {
+    //     const res = await fetch(
+    //       `https://api.unsplash.com/photos/:${id}/download`, {
+    //         method: 'GET',
+    //         headers: {
+    //           Authorization: `Client-ID ${process.env.ACCESS_KEY}`
+    //         }
+    //       }
+    //     );
+    //     this.randomPhotosAPI = await res.json();
+    //     console.log(this.randomPhotosAPI)
+    //   }
   }]);
   return API;
 }();
@@ -220,16 +231,30 @@ var UI = /*#__PURE__*/function () {
       var _this2 = this;
       data.map(function (photo) {
         var url = photo.urls.regular;
+        var downloadURL = photo.urls.full;
         var imgWrapper = _this2.element.divCreator("class", "img-wrapper", _this2.galleryWrapper);
         imgWrapper.style.background = "url(".concat(url, ") no-repeat");
         imgWrapper.style.backgroundSize = "cover";
         imgWrapper.style.backgroundPosition = "center";
         var imgPropWrapper = _this2.element.divCreator("class", "img_prop-wrapper", imgWrapper);
-        var downloadCtaWrapper = _this2.element.divCreator("class", "main_cta-wrapper", imgWrapper);
-        var downloadCta = _this2.element.divCreator("class", "main_cta", imgPropWrapper);
+        var downloadCtaWrapper = _this2.element.divCreator("class", "main_cta-wrapper", imgPropWrapper);
+        downloadCtaWrapper.style.display = 'none';
+        var downloadCta = _this2.element.divCreator("class", "download_cta", downloadCtaWrapper);
         _this2.element.imgCreator(_assets_download_svg__WEBPACK_IMPORTED_MODULE_4__, downloadCta);
+        downloadCta.addEventListener('click', function () {
+          var link = document.createElement('a');
+          link.href = downloadURL;
+          link.download = 'image.jpg';
+          link.click();
+        });
         var imgPropOpenerWrapper = _this2.element.divCreator('class', 'img_prop_opener-wrapper', imgPropWrapper);
         _this2.element.imgCreator(_assets_up_arrow_svg__WEBPACK_IMPORTED_MODULE_5__, imgPropOpenerWrapper);
+        imgPropWrapper.addEventListener('mouseover', function () {
+          downloadCtaWrapper.style.display = 'block';
+        });
+        imgPropWrapper.addEventListener('mouseout', function () {
+          downloadCtaWrapper.style.display = 'none';
+        });
       });
     }
   }, {
@@ -360,7 +385,7 @@ h2 {
   -webkit-text-fill-color: transparent;
 }
 
-.main_cta {
+.main_cta, .download_cta {
   border: 1px solid;
   border-radius: 160px;
   width: 10rem;
@@ -404,12 +429,13 @@ h2 {
 }
 
 .img_prop-wrapper {
-  width: 100%;
-  padding: 2rem;
+  margin: 0rem auto;
+  padding: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 5rem;
   align-self: end;
 }
 
@@ -424,7 +450,7 @@ h2 {
   text-align: center;
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA0BA;EACE,UAAA;EACA,WAAA;AAzBF;;AA4BA;EACE,YAAA;EACA,gCAjCW;EAkCX,sBA9BW;EA+BX,qCAAA;EACA,kBAAA;EACA,kBAAA;AAzBF;AA2BE;EACE,UAAA;AAzBJ;;AA+BA;EACE,gBAAA;EACA,gBAAA;AA5BF;;AA+BA;EACE,kBAAA;EACA,gBAAA;AA5BF;;AA+BA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EA1CA,aAAA;EACA,uBAAA;EACA,mBAAA;AAeF;;AA6BA;EACE,kBAAA;EACA,WAAA;AA1BF;;AA4BA;EACE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AAzBF;;AA4BA;EACE,gCA/EW;EAgFX,YAAA;AAzBF;;AA4BA;EA5EE,+EAAA;AAoDF;;AA4BA;EACE,gBAAA;EA9EA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAsDF;;AAyBA;EACE,gBAAA;EA7EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAwDF;;AAuBA;EACE,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EA/EA,aAAA;EACA,uBAAA;EACA,mBAAA;AA4DF;;AAqBA;EACE,YAAA;AAlBF;;AAqBA;EACE,gBAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCA/GmB;EAmBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AA2EF;;AAoBA;EACE,oBAAA;AAjBF;;AAoBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAjBF;;AAqBA;EACE,aAAA;EAEA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAnBF;;AAsBA;EACE,WAAA;EACA,aAAA;EAvHA,aAAA;EACA,uBAAA;EACA,mBAAA;EAuHA,sBAAA;EACA,eAAA;AAjBF;;AAqBA;EACE,iCAlJmB;EAmJnB,YAAA;EACA,mBAAA;EACA,sBAnJW;EAoJX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;AAlBF","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar{\n    width: 0px;\n  }\n}\n\n\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay, #black_gradient-overlay{\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient()\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta{\n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n}\n\n.gallery-section{\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  \n  @include flexCenter()\n}\n\n.page-padding{\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper{\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n\n}\n\n.img-wrapper {\n  display: flex;\n  // flex-direction: column;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper{\n  width: 100%;\n  padding: 2rem;\n  @include flexCenter();\n  flex-direction: column;\n  align-self: end;\n  \n}\n\n.load_more-btn{\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA0BA;EACE,UAAA;EACA,WAAA;AAzBF;;AA4BA;EACE,YAAA;EACA,gCAjCW;EAkCX,sBA9BW;EA+BX,qCAAA;EACA,kBAAA;EACA,kBAAA;AAzBF;AA2BE;EACE,UAAA;AAzBJ;;AA+BA;EACE,gBAAA;EACA,gBAAA;AA5BF;;AA+BA;EACE,kBAAA;EACA,gBAAA;AA5BF;;AA+BA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EA1CA,aAAA;EACA,uBAAA;EACA,mBAAA;AAeF;;AA6BA;EACE,kBAAA;EACA,WAAA;AA1BF;;AA4BA;EACE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AAzBF;;AA4BA;EACE,gCA/EW;EAgFX,YAAA;AAzBF;;AA4BA;EA5EE,+EAAA;AAoDF;;AA4BA;EACE,gBAAA;EA9EA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAsDF;;AAyBA;EACE,gBAAA;EA7EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAwDF;;AAuBA;EACE,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EA/EA,aAAA;EACA,uBAAA;EACA,mBAAA;AA4DF;;AAqBA;EACE,YAAA;AAlBF;;AAqBA;EACE,gBAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCA/GmB;EAmBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AA2EF;;AAoBA;EACE,oBAAA;AAjBF;;AAoBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAjBF;;AAqBA;EACE,aAAA;EAEA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAnBF;;AAsBA;EAEE,iBAAA;EACA,aAAA;EAxHA,aAAA;EACA,uBAAA;EACA,mBAAA;EAwHA,sBAAA;EACA,SAAA;EACA,eAAA;AAlBF;;AAsBA;EACE,iCApJmB;EAqJnB,YAAA;EACA,mBAAA;EACA,sBArJW;EAsJX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;AAnBF","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar{\n    width: 0px;\n  }\n}\n\n\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay, #black_gradient-overlay{\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient()\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta, .download_cta{\n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n}\n\n.gallery-section{\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  \n  @include flexCenter()\n}\n\n.page-padding{\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper{\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n\n}\n\n.img-wrapper {\n  display: flex;\n  // flex-direction: column;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper{\n  // width: 100%;\n  margin: 0rem auto;\n  padding: 3rem;\n  @include flexCenter();\n  flex-direction: column;\n  gap: 5rem;\n  align-self: end;\n  \n}\n\n.load_more-btn{\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1106,4 +1132,4 @@ module.exports = __webpack_require__.p + "82df1286e25e518ffc6c.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundlef34f72980d89f1cc5175.js.map
+//# sourceMappingURL=bundle23dea6e80a910b290101.js.map

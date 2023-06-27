@@ -94,6 +94,7 @@ class UI {
   appendPhotos(data) {
     data.map((photo) => {
       const url = photo.urls.regular;
+      const downloadURL = photo.urls.full;
 
       const imgWrapper = this.element.divCreator("class", "img-wrapper", this.galleryWrapper);
       imgWrapper.style.background = `url(${url}) no-repeat`;
@@ -109,6 +110,24 @@ class UI {
       
       const downloadCta = this.element.divCreator("class", "download_cta", downloadCtaWrapper);
       this.element.imgCreator(downloadIcon, downloadCta);
+
+      downloadCta.addEventListener('click', () => {
+        fetch(downloadURL)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "image.jpg";
+          link.click();
+    
+          // Clean up the object URL
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+          console.log("Error occurred while downloading the image:", error);
+        });
+      })
       
       const imgPropOpenerWrapper = this.element.divCreator('class', 'img_prop_opener-wrapper', imgPropWrapper)
       this.element.imgCreator(upIcon, imgPropOpenerWrapper)
