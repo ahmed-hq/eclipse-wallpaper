@@ -48,8 +48,6 @@ class UI {
       const imgPropWrapper = element.divCreator("class", "img_prop-wrapper", imgWrapper);
 
       const downloadCtaWrapper = element.divCreator("class", "download_cta-wrapper", imgPropWrapper);
-      downloadCtaWrapper.style.opacity = "0";
-
       const downloadCta = element.divCreator("class", "download_cta", downloadCtaWrapper);
       element.imgCreator(downloadIcon, downloadCta);
       downloadCta.addEventListener("click", () => {
@@ -58,12 +56,22 @@ class UI {
 
       const imgPropOpenerWrapper = element.divCreator("class", "img_prop_opener-wrapper", imgPropWrapper);
       element.imgCreator(upIcon, imgPropOpenerWrapper);
-      imgPropOpenerWrapper &&
-        imgPropWrapper.addEventListener("mouseover", () => {
-          downloadCtaWrapper.style.opacity = "100";
-        });
+
+      imgPropWrapper.addEventListener("mouseover", () => {
+        downloadCtaWrapper.style.display = "block";
+      });
       imgPropWrapper.addEventListener("mouseout", () => {
-        downloadCtaWrapper.style.opacity = "0";
+        const rect = imgPropWrapper.getBoundingClientRect();
+
+        const isMouseOutsideArea =
+          event.clientX < rect.left - 0 ||
+          event.clientX > rect.right + 0 ||
+          event.clientY < rect.top - 125 ||
+          event.clientY > rect.bottom + 0;
+
+        if (isMouseOutsideArea) {
+          downloadCtaWrapper.style.display = "none";
+        }
       });
     });
   }
@@ -76,7 +84,6 @@ class UI {
     this.galleryWrapper.appendChild(Btn);
 
     Btn.addEventListener("click", async () => {
-      // getData();
       await api.getRandomPhotos();
       this.appendPhotos(api.randomPhotosAPI);
       Btn.style.display = "none";

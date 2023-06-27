@@ -129,6 +129,12 @@ h2 {
   align-self: end;
 }
 
+.download_cta-wrapper {
+  display: none;
+  position: absolute;
+  top: -12rem;
+}
+
 .load_more-btn {
   background-color: hsl(0, 0%, 15%);
   border: none;

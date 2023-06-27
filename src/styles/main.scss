@@ -130,7 +130,6 @@ h2 {
 
 .img-wrapper {
   display: flex;
-  // flex-direction: column;
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 30px;
@@ -149,7 +148,9 @@ h2 {
 }
 
 .download_cta-wrapper{
-
+  display: none;
+  position: absolute;
+  top: -12rem;
 }
 
 .load_more-btn{
