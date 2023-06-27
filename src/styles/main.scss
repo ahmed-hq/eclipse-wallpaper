@@ -94,7 +94,7 @@ h2 {
   @include subDisplayLinearGradient();
 }
 
-.main_cta{
+.main_cta, .download_cta{
   border: 1px solid;
   border-radius: 160px;
   width: 10rem;
@@ -137,9 +137,12 @@ h2 {
 }
 
 .img_prop-wrapper{
-  width: 100%;
+  // width: 100%;
+  margin: 0rem auto;
+  padding: 3rem;
   @include flexCenter();
   flex-direction: column;
+  gap: 5rem;
   align-self: end;
   
 }

@@ -102,14 +102,23 @@ class UI {
 
       
       const imgPropWrapper = this.element.divCreator("class", "img_prop-wrapper", imgWrapper);
-
       
-      const downloadCtaWrapper = this.element.divCreator("class", "main_cta-wrapper", imgWrapper);
-      const downloadCta = this.element.divCreator("class", "main_cta", imgPropWrapper);
+      const downloadCtaWrapper = this.element.divCreator("class", "main_cta-wrapper", imgPropWrapper);
+      downloadCtaWrapper.style.display = 'none'
+      
+      
+      const downloadCta = this.element.divCreator("class", "download_cta", downloadCtaWrapper);
       this.element.imgCreator(downloadIcon, downloadCta);
       
       const imgPropOpenerWrapper = this.element.divCreator('class', 'img_prop_opener-wrapper', imgPropWrapper)
       this.element.imgCreator(upIcon, imgPropOpenerWrapper)
+
+      imgPropWrapper.addEventListener('mouseover', () => {
+        downloadCtaWrapper.style.display = 'block'
+      });
+      imgPropWrapper.addEventListener('mouseout', () => {
+        downloadCtaWrapper.style.display = 'none'
+      })
     });
   }
 
