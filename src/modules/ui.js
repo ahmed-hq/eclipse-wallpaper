@@ -26,7 +26,7 @@ class UI {
   createNavbar() {
     this.navbar = element.divCreator("class", "navbar", this.gallerySection);
     nav.createLogo(this.navbar);
-    nav.displayOnScroll(this.navbar);
+    animation.navScrollAnimation(this.navbar);
   }
 
   createGallerySection() {

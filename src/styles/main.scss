@@ -29,6 +29,8 @@ $whiteColor: hsla(0, 0%, 98%, 1);
   padding: 0%;
 }
 
+
+
 body {
   width: 100vw;
   background-color: $blackColor;
@@ -114,8 +116,7 @@ h2 {
   width: 100vw;
   height: 3.375rem;
   background-color: $tertiaryBlackColor;
-  
-  @include flexCenter()
+  @include flexCenter();
 }
 
 .page-padding{

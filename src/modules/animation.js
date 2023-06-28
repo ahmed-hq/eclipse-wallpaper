@@ -1,4 +1,3 @@
-
 class Animation {
   heroAnimation() {
     gsap.fromTo(
@@ -17,26 +16,41 @@ class Animation {
       { y: "-170%", opacity: "0%" },
       { y: "0%", opacity: "100%", ease: "expo", duration: 2, delay: 1.1 }
     );
+
     const outroAnimations = [
       { selector: "#hero-display", start: 50 },
       { selector: "#hero-sub_display", start: 150 },
-      { selector: ".main_cta", start: 250 }
+      { selector: ".main_cta", start: 250 },
     ];
-    
-    outroAnimations.forEach(animation => {
+
+    outroAnimations.forEach((animation) => {
       gsap.to(animation.selector, {
         y: "-100%",
         scrollTrigger: {
           trigger: animation.selector,
           start: animation.start,
           end: "400",
-          scrub: 3
-        }
+          scrub: 3,
+        },
       });
     });
+  }
 
-
-    
+  navScrollAnimation(target) {
+    let animationDone = false;
+    let timeline;
+    target.style.opacity = "0%"
+    window.addEventListener("scroll", (e) => {
+      if (window.scrollY > 1000 && !animationDone) {
+        // target.style.display = "flex";
+        animationDone = true;
+        timeline = gsap.fromTo(target, { opacity: "0%" }, { opacity: "100%", ease: "expo", duration: 2});
+      } else if (window.scrollY < 1000 && animationDone && timeline) {
+        // target.style.display = "none";
+        animationDone = false;
+        timeline.reverse(.2);
+      }
+    });
   }
 }
 

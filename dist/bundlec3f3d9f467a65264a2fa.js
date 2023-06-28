@@ -105,6 +105,30 @@ var Animation = /*#__PURE__*/function () {
         });
       });
     }
+  }, {
+    key: "navScrollAnimation",
+    value: function navScrollAnimation(target) {
+      var animationDone = false;
+      var timeline;
+      target.style.opacity = "0%";
+      window.addEventListener("scroll", function (e) {
+        if (window.scrollY > 1000 && !animationDone) {
+          // target.style.display = "flex";
+          animationDone = true;
+          timeline = gsap.fromTo(target, {
+            opacity: "0%"
+          }, {
+            opacity: "100%",
+            ease: "expo",
+            duration: 2
+          });
+        } else if (window.scrollY < 1000 && animationDone && timeline) {
+          // target.style.display = "none";
+          animationDone = false;
+          timeline.reverse(.2);
+        }
+      });
+    }
   }]);
   return Animation;
 }();
@@ -371,17 +395,6 @@ var Nav = /*#__PURE__*/function () {
       var logoWrapper = _element__WEBPACK_IMPORTED_MODULE_1__.element.divCreator("class", "logo-wrapper", parent);
       _element__WEBPACK_IMPORTED_MODULE_1__.element.imgCreator(_assets_logo_svg__WEBPACK_IMPORTED_MODULE_0__, logoWrapper);
     }
-  }, {
-    key: "displayOnScroll",
-    value: function displayOnScroll(target) {
-      window.addEventListener("scroll", function (e) {
-        if (window.scrollY > 1000) {
-          target.style.display = "flex";
-        } else {
-          target.style.display = "none";
-        }
-      });
-    }
   }]);
   return Nav;
 }();
@@ -446,7 +459,7 @@ var UI = /*#__PURE__*/function () {
     value: function createNavbar() {
       this.navbar = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "navbar", this.gallerySection);
       _ui_modules_nav__WEBPACK_IMPORTED_MODULE_4__.nav.createLogo(this.navbar);
-      _ui_modules_nav__WEBPACK_IMPORTED_MODULE_4__.nav.displayOnScroll(this.navbar);
+      _animation__WEBPACK_IMPORTED_MODULE_1__.animation.navScrollAnimation(this.navbar);
     }
   }, {
     key: "createGallerySection",
@@ -691,7 +704,7 @@ h2 {
   text-align: center;
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA0BA;EACE,UAAA;EACA,WAAA;AAzBF;;AA4BA;EACE,YAAA;EACA,gCAjCW;EAkCX,sBA9BW;EA+BX,qCAAA;EACA,kBAAA;EACA,kBAAA;AAzBF;AA2BE;EACE,UAAA;AAzBJ;;AA+BA;EACE,gBAAA;EACA,gBAAA;AA5BF;;AA+BA;EACE,kBAAA;EACA,gBAAA;AA5BF;;AA+BA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EA1CA,aAAA;EACA,uBAAA;EACA,mBAAA;AAeF;;AA6BA;EACE,kBAAA;EACA,WAAA;AA1BF;;AA4BA;EACE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AAzBF;;AA4BA;EACE,gCA/EW;EAgFX,YAAA;AAzBF;;AA4BA;EA5EE,+EAAA;AAoDF;;AA4BA;EACE,gBAAA;EA9EA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAsDF;;AAyBA;EACE,gBAAA;EA7EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAwDF;;AAuBA;EACE,gBAAA;EACA,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EAhFA,aAAA;EACA,uBAAA;EACA,mBAAA;AA6DF;;AAqBA;EACE,YAAA;AAlBF;;AAqBA;EACE,gBAAA;EACA,UAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCAjHmB;EAmBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AA6EF;;AAoBA;EACE,oBAAA;AAjBF;;AAoBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAjBF;;AAqBA;EACE,aAAA;EACA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAlBF;;AAqBA;EACE,kBAAA;EACA,iBAAA;EACA,aAAA;EAzHA,aAAA;EACA,uBAAA;EACA,mBAAA;EAyHA,sBAAA;EACA,SAAA;EACA,eAAA;AAhBF;;AAoBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;AAjBF;;AAoBA;EACE,iCA3JmB;EA4JnB,YAAA;EACA,mBAAA;EACA,sBA5JW;EA6JX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;AAjBF","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar{\n    width: 0px;\n  }\n}\n\n\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay, #black_gradient-overlay{\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient()\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta, .download_cta{\n  overflow: hidden;\n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n}\n\n.gallery-section{\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  z-index: 1;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  \n  @include flexCenter()\n}\n\n.page-padding{\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper{\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n\n}\n\n.img-wrapper {\n  display: flex;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper{\n  position: relative;\n  margin: 0rem auto;\n  padding: 3rem;\n  @include flexCenter();\n  flex-direction: column;\n  gap: 5rem;\n  align-self: end;\n  \n}\n\n.download_cta-wrapper{\n  display: none;\n  position: absolute;\n  top: -12rem;\n}\n\n.load_more-btn{\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA0BA;EACE,UAAA;EACA,WAAA;AAzBF;;AA8BA;EACE,YAAA;EACA,gCAnCW;EAoCX,sBAhCW;EAiCX,qCAAA;EACA,kBAAA;EACA,kBAAA;AA3BF;AA6BE;EACE,UAAA;AA3BJ;;AAiCA;EACE,gBAAA;EACA,gBAAA;AA9BF;;AAiCA;EACE,kBAAA;EACA,gBAAA;AA9BF;;AAiCA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EA5CA,aAAA;EACA,uBAAA;EACA,mBAAA;AAeF;;AA+BA;EACE,kBAAA;EACA,WAAA;AA5BF;;AA8BA;EACE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AA3BF;;AA8BA;EACE,gCAjFW;EAkFX,YAAA;AA3BF;;AA8BA;EA9EE,+EAAA;AAoDF;;AA8BA;EACE,gBAAA;EAhFA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAsDF;;AA2BA;EACE,gBAAA;EA/EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAwDF;;AAyBA;EACE,gBAAA;EACA,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EAlFA,aAAA;EACA,uBAAA;EACA,mBAAA;AA6DF;;AAuBA;EACE,YAAA;AApBF;;AAuBA;EACE,gBAAA;EACA,UAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCAnHmB;EAmBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AA6EF;;AAqBA;EACE,oBAAA;AAlBF;;AAqBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAlBF;;AAsBA;EACE,aAAA;EACA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAnBF;;AAsBA;EACE,kBAAA;EACA,iBAAA;EACA,aAAA;EA1HA,aAAA;EACA,uBAAA;EACA,mBAAA;EA0HA,sBAAA;EACA,SAAA;EACA,eAAA;AAjBF;;AAqBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;AAlBF;;AAqBA;EACE,iCA5JmB;EA6JnB,YAAA;EACA,mBAAA;EACA,sBA7JW;EA8JX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;AAlBF","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\n\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar{\n    width: 0px;\n  }\n}\n\n\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay, #black_gradient-overlay{\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient()\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta, .download_cta{\n  overflow: hidden;\n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n}\n\n.gallery-section{\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  z-index: 1;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  @include flexCenter();\n}\n\n.page-padding{\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper{\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n\n}\n\n.img-wrapper {\n  display: flex;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper{\n  position: relative;\n  margin: 0rem auto;\n  padding: 3rem;\n  @include flexCenter();\n  flex-direction: column;\n  gap: 5rem;\n  align-self: end;\n  \n}\n\n.download_cta-wrapper{\n  display: none;\n  position: absolute;\n  top: -12rem;\n}\n\n.load_more-btn{\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1373,4 +1386,4 @@ module.exports = __webpack_require__.p + "82df1286e25e518ffc6c.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundlee6ba990e38447fac69a0.js.map
+//# sourceMappingURL=bundlec3f3d9f467a65264a2fa.js.map
