@@ -18,8 +18,8 @@ class Animation {
       { y: "0%", opacity: "100%", ease: "expo", duration: 2, delay: 1.1 }
     );
     const outroAnimations = [
-      { selector: "#hero-display", start: 150 },
-      { selector: "#hero-sub_display", start: 200 },
+      { selector: "#hero-display", start: 50 },
+      { selector: "#hero-sub_display", start: 150 },
       { selector: ".main_cta", start: 250 }
     ];
     
@@ -29,11 +29,13 @@ class Animation {
         scrollTrigger: {
           trigger: animation.selector,
           start: animation.start,
-          end: "800",
-          scrub: 1
+          end: "400",
+          scrub: 3
         }
       });
     });
+
+
     
   }
 }

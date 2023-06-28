@@ -85,16 +85,13 @@ var Animation = /*#__PURE__*/function () {
       });
       var outroAnimations = [{
         selector: "#hero-display",
-        start: 150
+        start: 50
       }, {
         selector: "#hero-sub_display",
-        start: 200
+        start: 150
       }, {
         selector: ".main_cta",
         start: 250
-      }, {
-        selector: ".img-wrapper",
-        start: 10
       }];
       outroAnimations.forEach(function (animation) {
         gsap.to(animation.selector, {
@@ -102,8 +99,8 @@ var Animation = /*#__PURE__*/function () {
           scrollTrigger: {
             trigger: animation.selector,
             start: animation.start,
-            end: "10",
-            scrub: 1
+            end: "400",
+            scrub: 3
           }
         });
       });
@@ -153,7 +150,7 @@ var API = /*#__PURE__*/function () {
               return fetch("https://api.unsplash.com/photos/random?count=30&collections=4369173", {
                 method: "GET",
                 headers: {
-                  Authorization: "Client-ID ".concat("xL89z7hn8F3AhY7j8f23z2mNIR9qGyU3338Yw4sdjI4")
+                  Authorization: "Client-ID ".concat("CWVSfhbzc0It_GwiK0IyCz-vFUPECwYWh5Ff7x_vW-c")
                 }
               });
             case 3:
@@ -1376,4 +1373,4 @@ module.exports = __webpack_require__.p + "82df1286e25e518ffc6c.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundleba53260dba13f6a23ecd.js.map
+//# sourceMappingURL=bundlee6ba990e38447fac69a0.js.map
