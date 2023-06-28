@@ -74,6 +74,7 @@ h2 {
 }
 
 .main_cta, .download_cta {
+  overflow: hidden;
   border: 1px solid;
   border-radius: 160px;
   width: 10rem;

@@ -1,4 +1,5 @@
 import { api } from "./api";
+import { animation } from "./animation";
 import { element } from "./ui-modules/element";
 import { hero } from "./ui-modules/hero";
 import { nav } from "./ui-modules/nav";
@@ -19,6 +20,7 @@ class UI {
     hero.videoOverlay(heroSection);
     hero.displayHeader(heroSection);
     hero.createMainCta(heroSection);
+    animation.heroAnimation()
   }
 
   createNavbar() {
