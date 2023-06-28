@@ -106,6 +106,31 @@ var Animation = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "mainCtaHoverAnimation",
+    value: function mainCtaHoverAnimation() {
+      var btn = document.querySelector(".main_cta");
+      var children = btn.children;
+      for (var i = 0; i < children.length; i++) {
+        children[i].style.pointerEvents = "none";
+      }
+      btn.addEventListener("mouseover", function () {
+        var timeline = gsap.timeline();
+        timeline.to(btn.children, {
+          y: "65%",
+          ease: "expo",
+          duration: 2
+        });
+      });
+      btn.addEventListener("mouseout", function () {
+        var timeline = gsap.timeline();
+        timeline.to(btn.children, {
+          y: "0%",
+          ease: "expo",
+          duration: 1
+        });
+      });
+    }
+  }, {
     key: "navScrollAnimation",
     value: function navScrollAnimation(target) {
       var animationDone = false;
@@ -125,7 +150,7 @@ var Animation = /*#__PURE__*/function () {
         } else if (window.scrollY < 1000 && animationDone && timeline) {
           // target.style.display = "none";
           animationDone = false;
-          timeline.reverse(.2);
+          timeline.reverse(0.2);
         }
       });
     }
@@ -350,7 +375,9 @@ var Hero = /*#__PURE__*/function () {
     value: function createMainCta(parent) {
       var mainCtaWrapper = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "main_cta-wrapper", parent);
       var mainCta = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "main_cta", mainCtaWrapper);
-      _element__WEBPACK_IMPORTED_MODULE_0__.element.imgCreator(_assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__, mainCta);
+      var arrowWrapper = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "arrow-wrapper", mainCta);
+      _element__WEBPACK_IMPORTED_MODULE_0__.element.imgCreator(_assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__, arrowWrapper);
+      _element__WEBPACK_IMPORTED_MODULE_0__.element.imgCreator(_assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__, arrowWrapper);
       mainCta.addEventListener("click", function () {
         _ui__WEBPACK_IMPORTED_MODULE_1__.ui.gallerySection.scrollIntoView({
           behavior: "smooth"
@@ -452,6 +479,7 @@ var UI = /*#__PURE__*/function () {
       _ui_modules_hero__WEBPACK_IMPORTED_MODULE_3__.hero.videoOverlay(heroSection);
       _ui_modules_hero__WEBPACK_IMPORTED_MODULE_3__.hero.displayHeader(heroSection);
       _ui_modules_hero__WEBPACK_IMPORTED_MODULE_3__.hero.createMainCta(heroSection);
+      _animation__WEBPACK_IMPORTED_MODULE_1__.animation.mainCtaHoverAnimation();
       _animation__WEBPACK_IMPORTED_MODULE_1__.animation.heroAnimation();
     }
   }, {
@@ -490,14 +518,30 @@ var UI = /*#__PURE__*/function () {
         });
         var imgPropOpenerWrapper = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "img_prop_opener-wrapper", imgPropWrapper);
         _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.imgCreator(_assets_up_arrow_svg__WEBPACK_IMPORTED_MODULE_6__, imgPropOpenerWrapper);
-        imgPropWrapper.addEventListener("mouseover", function () {
+        imgPropWrapper.addEventListener("mouseenter", function () {
           downloadCtaWrapper.style.display = "block";
+          var timeline = gsap.timeline();
+          timeline.fromTo(downloadCtaWrapper, {
+            opacity: "0%"
+          }, {
+            opacity: "100%",
+            y: '2%',
+            ease: "expo",
+            duration: 4
+          });
         });
-        imgPropWrapper.addEventListener("mouseout", function () {
+        imgPropWrapper.addEventListener("mouseleave", function () {
           var rect = imgPropWrapper.getBoundingClientRect();
           var isMouseOutsideArea = event.clientX < rect.left - 0 || event.clientX > rect.right + 0 || event.clientY < rect.top - 125 || event.clientY > rect.bottom + 0;
           if (isMouseOutsideArea) {
             downloadCtaWrapper.style.display = "none";
+            var timeline = gsap.timeline();
+            timeline.to(downloadCtaWrapper, {
+              opacity: "0%",
+              y: '0%',
+              ease: "expo",
+              duration: 2
+            });
           }
         });
       });
@@ -641,6 +685,17 @@ h2 {
   align-items: center;
 }
 
+.main_cta > * {
+  position: absolute;
+  bottom: 2.7rem;
+}
+
+.arrow-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
 .gallery-section {
   width: 100vw;
 }
@@ -690,7 +745,7 @@ h2 {
 .download_cta-wrapper {
   display: none;
   position: absolute;
-  top: -12rem;
+  top: -10.1rem;
 }
 
 .load_more-btn {
@@ -704,7 +759,15 @@ h2 {
   text-align: center;
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA0BA;EACE,UAAA;EACA,WAAA;AAzBF;;AA8BA;EACE,YAAA;EACA,gCAnCW;EAoCX,sBAhCW;EAiCX,qCAAA;EACA,kBAAA;EACA,kBAAA;AA3BF;AA6BE;EACE,UAAA;AA3BJ;;AAiCA;EACE,gBAAA;EACA,gBAAA;AA9BF;;AAiCA;EACE,kBAAA;EACA,gBAAA;AA9BF;;AAiCA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EA5CA,aAAA;EACA,uBAAA;EACA,mBAAA;AAeF;;AA+BA;EACE,kBAAA;EACA,WAAA;AA5BF;;AA8BA;EACE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AA3BF;;AA8BA;EACE,gCAjFW;EAkFX,YAAA;AA3BF;;AA8BA;EA9EE,+EAAA;AAoDF;;AA8BA;EACE,gBAAA;EAhFA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAsDF;;AA2BA;EACE,gBAAA;EA/EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAwDF;;AAyBA;EACE,gBAAA;EACA,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EAlFA,aAAA;EACA,uBAAA;EACA,mBAAA;AA6DF;;AAuBA;EACE,YAAA;AApBF;;AAuBA;EACE,gBAAA;EACA,UAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCAnHmB;EAmBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AA6EF;;AAqBA;EACE,oBAAA;AAlBF;;AAqBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAlBF;;AAsBA;EACE,aAAA;EACA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAnBF;;AAsBA;EACE,kBAAA;EACA,iBAAA;EACA,aAAA;EA1HA,aAAA;EACA,uBAAA;EACA,mBAAA;EA0HA,sBAAA;EACA,SAAA;EACA,eAAA;AAjBF;;AAqBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;AAlBF;;AAqBA;EACE,iCA5JmB;EA6JnB,YAAA;EACA,mBAAA;EACA,sBA7JW;EA8JX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;AAlBF","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\n\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar{\n    width: 0px;\n  }\n}\n\n\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay, #black_gradient-overlay{\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient()\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta, .download_cta{\n  overflow: hidden;\n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n}\n\n.gallery-section{\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  z-index: 1;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  @include flexCenter();\n}\n\n.page-padding{\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper{\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n\n}\n\n.img-wrapper {\n  display: flex;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper{\n  position: relative;\n  margin: 0rem auto;\n  padding: 3rem;\n  @include flexCenter();\n  flex-direction: column;\n  gap: 5rem;\n  align-self: end;\n  \n}\n\n.download_cta-wrapper{\n  display: none;\n  position: absolute;\n  top: -12rem;\n}\n\n.load_more-btn{\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n}"],"sourceRoot":""}]);
+  transition: 2s;
+}
+.load_more-btn:hover {
+  background-color: hsl(0, 0%, 21%);
+}
+.load_more-btn:active {
+  background-color: hsl(0, 0%, 15%);
+  transition: 0.5s;
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA2BA;EACE,UAAA;EACA,WAAA;AA1BF;;AA+BA;EACE,YAAA;EACA,gCApCW;EAqCX,sBAhCW;EAiCX,qCAAA;EACA,kBAAA;EACA,kBAAA;AA5BF;AA8BE;EACE,UAAA;AA5BJ;;AAkCA;EACE,gBAAA;EACA,gBAAA;AA/BF;;AAkCA;EACE,kBAAA;EACA,gBAAA;AA/BF;;AAkCA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EA5CA,aAAA;EACA,uBAAA;EACA,mBAAA;AAcF;;AAgCA;EACE,kBAAA;EACA,WAAA;AA7BF;;AA+BA;EACE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AA5BF;;AA+BA;EACE,gCAlFW;EAmFX,YAAA;AA5BF;;AA+BA;EA9EE,+EAAA;AAmDF;;AA+BA;EACE,gBAAA;EAhFA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAqDF;;AA4BA;EACE,gBAAA;EA/EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAuDF;;AA0BA;EACE,gBAAA;EAGA,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EApFA,aAAA;EACA,uBAAA;EACA,mBAAA;AA4DF;;AA0BA;EACE,kBAAA;EACA,cAAA;AAvBF;;AA0BA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAvBF;;AA0BA;EACE,YAAA;AAvBF;;AA0BA;EACE,gBAAA;EACA,UAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCAjImB;EAoBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AAuFF;;AAwBA;EACE,oBAAA;AArBF;;AAwBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AArBF;;AAyBA;EACE,aAAA;EACA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAtBF;;AAyBA;EACE,kBAAA;EACA,iBAAA;EACA,aAAA;EAvIA,aAAA;EACA,uBAAA;EACA,mBAAA;EAuIA,sBAAA;EACA,SAAA;EACA,eAAA;AApBF;;AAwBA;EACE,aAAA;EACA,kBAAA;EACA,aAAA;AArBF;;AA4BA;EACE,iCA9KmB;EA+KnB,YAAA;EACA,mBAAA;EACA,sBA9KW;EA+KX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;EACA,cAAA;AAzBF;AA2BE;EACE,iCA1Le;AAiKnB;AA2BE;EACE,iCA9LiB;EA+LjB,gBAAA;AAzBJ","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n$fourthBlackColor: hsla(0, 0%, 21%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\n\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar{\n    width: 0px;\n  }\n}\n\n\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay, #black_gradient-overlay{\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient()\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta, .download_cta{\n  overflow: hidden;\n\n  \n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n}\n\n.main_cta > * {\n  position: absolute;\n  bottom: 2.7rem;\n}\n\n.arrow-wrapper {\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n}\n\n.gallery-section{\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  z-index: 1;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  @include flexCenter();\n}\n\n.page-padding{\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper{\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n\n}\n\n.img-wrapper {\n  display: flex;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper{\n  position: relative;\n  margin: 0rem auto;\n  padding: 3rem;\n  @include flexCenter();\n  flex-direction: column;\n  gap: 5rem;\n  align-self: end;\n  \n}\n\n.download_cta-wrapper{\n  display: none;\n  position: absolute;\n  top: -10.1rem;\n}\n\n.download_cta{\n\n}\n\n.load_more-btn{\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n  transition: 2s;\n  \n  &:hover {\n    background-color: $fourthBlackColor;\n  }\n  &:active {\n    background-color: $tertiaryBlackColor;\n    transition: .5s;\n  }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1386,4 +1449,4 @@ module.exports = __webpack_require__.p + "82df1286e25e518ffc6c.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundlec3f3d9f467a65264a2fa.js.map
+//# sourceMappingURL=bundlee632f4ecab23b09bebb0.js.map

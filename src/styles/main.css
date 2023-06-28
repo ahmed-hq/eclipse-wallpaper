@@ -84,6 +84,17 @@ h2 {
   align-items: center;
 }
 
+.main_cta > * {
+  position: absolute;
+  bottom: 2.7rem;
+}
+
+.arrow-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
 .gallery-section {
   width: 100vw;
 }
@@ -133,7 +144,7 @@ h2 {
 .download_cta-wrapper {
   display: none;
   position: absolute;
-  top: -12rem;
+  top: -13rem;
 }
 
 .load_more-btn {
@@ -147,4 +158,12 @@ h2 {
   text-align: center;
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
+  transition: 2s;
+}
+.load_more-btn:hover {
+  background-color: hsl(0, 0%, 21%);
+}
+.load_more-btn:active {
+  background-color: hsl(0, 0%, 15%);
+  transition: 0.5s;
 }/*# sourceMappingURL=main.css.map */

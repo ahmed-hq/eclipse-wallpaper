@@ -1,6 +1,7 @@
 $blackColor: hsla(0, 0%, 4%, 1);
 $secondaryBlackColor: hsla(0, 0%, 6%, 1);
 $tertiaryBlackColor: hsla(0, 0%, 15%, 1);
+$fourthBlackColor: hsla(0, 0%, 21%, 1);
 
 $whiteColor: hsla(0, 0%, 98%, 1);
 
@@ -98,11 +99,24 @@ h2 {
 
 .main_cta, .download_cta{
   overflow: hidden;
+
+  
   border: 1px solid;
   border-radius: 160px;
   width: 10rem;
   height: 10rem;
   @include flexCenter();
+}
+
+.main_cta > * {
+  position: absolute;
+  bottom: 2.7rem;
+}
+
+.arrow-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 }
 
 .gallery-section{
@@ -152,7 +166,11 @@ h2 {
 .download_cta-wrapper{
   display: none;
   position: absolute;
-  top: -12rem;
+  top: -13rem;
+}
+
+.download_cta{
+
 }
 
 .load_more-btn{
@@ -166,4 +184,13 @@ h2 {
   text-align: center;
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
+  transition: 2s;
+  
+  &:hover {
+    background-color: $fourthBlackColor;
+  }
+  &:active {
+    background-color: $tertiaryBlackColor;
+    transition: .5s;
+  }
 }

@@ -42,7 +42,11 @@ class Hero {
   createMainCta(parent) {
     const mainCtaWrapper = element.divCreator("class", "main_cta-wrapper", parent);
     const mainCta = element.divCreator("class", "main_cta", mainCtaWrapper);
-    element.imgCreator(ctaArrow, mainCta);
+    const arrowWrapper = element.divCreator("class", "arrow-wrapper", mainCta);
+
+    element.imgCreator(ctaArrow, arrowWrapper);
+    element.imgCreator(ctaArrow, arrowWrapper);
+
 
     mainCta.addEventListener("click", () => {
       ui.gallerySection.scrollIntoView({ behavior: "smooth" });

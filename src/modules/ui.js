@@ -20,7 +20,8 @@ class UI {
     hero.videoOverlay(heroSection);
     hero.displayHeader(heroSection);
     hero.createMainCta(heroSection);
-    animation.heroAnimation()
+    animation.mainCtaHoverAnimation();
+    animation.heroAnimation();
   }
 
   createNavbar() {
@@ -59,10 +60,16 @@ class UI {
       const imgPropOpenerWrapper = element.divCreator("class", "img_prop_opener-wrapper", imgPropWrapper);
       element.imgCreator(upIcon, imgPropOpenerWrapper);
 
-      imgPropWrapper.addEventListener("mouseover", () => {
+      imgPropWrapper.addEventListener("mouseenter", () => {
         downloadCtaWrapper.style.display = "block";
+        const timeline = gsap.timeline();
+        timeline.fromTo(
+          downloadCtaWrapper,
+          { opacity: "0%" },
+          { opacity: "100%", ease: "expo", duration: 4 }
+        );
       });
-      imgPropWrapper.addEventListener("mouseout", () => {
+      imgPropWrapper.addEventListener("mouseleave", () => {
         const rect = imgPropWrapper.getBoundingClientRect();
 
         const isMouseOutsideArea =
@@ -73,6 +80,11 @@ class UI {
 
         if (isMouseOutsideArea) {
           downloadCtaWrapper.style.display = "none";
+          const timeline = gsap.timeline();
+        timeline.to(
+          downloadCtaWrapper,
+          { opacity: "0%", ease: "expo", duration: 2 }
+        );
         }
       });
     });
