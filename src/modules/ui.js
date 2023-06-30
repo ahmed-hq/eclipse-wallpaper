@@ -79,12 +79,12 @@ class UI {
           event.clientY > rect.bottom + 0;
 
         if (isMouseOutsideArea) {
-          downloadCtaWrapper.style.display = "none";
           const timeline = gsap.timeline();
-        timeline.to(
-          downloadCtaWrapper,
-          { opacity: "0%", ease: "expo", duration: 2 }
-        );
+          timeline.to(
+            downloadCtaWrapper,
+            { opacity: "0%", ease: "expo", duration: 2 }
+            );
+            downloadCtaWrapper.style.display = "none";
         }
       });
     });

@@ -53,6 +53,7 @@ class Animation {
         timeline.to(btn.children, { y: "0%", ease: "expo", duration: 1 });
       });
     }
+
     navScrollAnimation(target) {
       let animationDone = false;
       let timeline;
@@ -70,7 +71,11 @@ class Animation {
       });
     }
 
-    
+    smoothScroll(){
+      
+    }
+
+
   }
   
   const animation = new Animation();
