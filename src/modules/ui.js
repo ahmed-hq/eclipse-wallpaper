@@ -6,7 +6,6 @@ import { nav } from "./ui-modules/nav";
 import downloadIcon from "../assets/download.svg";
 import upIcon from "../assets/up-arrow.svg";
 
-
 class UI {
   constructor() {
     this.mainWrapper = element.divCreator("class", "main-wrapper", document.body);
@@ -63,12 +62,11 @@ class UI {
 
       imgPropWrapper.addEventListener("mouseenter", () => {
         downloadCtaWrapper.style.display = "block";
+
         const timeline = gsap.timeline();
-        timeline.fromTo(
-          downloadCtaWrapper,
-          { opacity: "0%" },
-          { opacity: "100%", ease: "expo", duration: 4 }
-        );
+        timeline
+          .to(imgPropOpenerWrapper, { y: "-50%", ease: "expo", duration: 0.5 })
+          .fromTo(downloadCtaWrapper, { opacity: "0%" }, { opacity: "100%", ease: "expo", duration: 4 });
       });
       imgPropWrapper.addEventListener("mouseleave", () => {
         const rect = imgPropWrapper.getBoundingClientRect();
@@ -81,7 +79,9 @@ class UI {
 
         if (isMouseOutsideArea) {
           const timeline = gsap.timeline();
-          timeline.to(downloadCtaWrapper, { opacity: "0%", ease: "expo", duration: 2 });
+          timeline
+            .to(imgPropOpenerWrapper, { y: "0%", ease: "expo", duration: 0.5 })
+            .to(downloadCtaWrapper, { opacity: "0%", ease: "expo", duration: 2 });
           downloadCtaWrapper.style.display = "none";
         }
       });

@@ -523,7 +523,11 @@ var UI = /*#__PURE__*/function () {
         imgPropWrapper.addEventListener("mouseenter", function () {
           downloadCtaWrapper.style.display = "block";
           var timeline = gsap.timeline();
-          timeline.fromTo(downloadCtaWrapper, {
+          timeline.to(imgPropOpenerWrapper, {
+            y: "-50%",
+            ease: "expo",
+            duration: 0.5
+          }).fromTo(downloadCtaWrapper, {
             opacity: "0%"
           }, {
             opacity: "100%",
@@ -536,7 +540,11 @@ var UI = /*#__PURE__*/function () {
           var isMouseOutsideArea = event.clientX < rect.left - 0 || event.clientX > rect.right + 0 || event.clientY < rect.top - 125 || event.clientY > rect.bottom + 0;
           if (isMouseOutsideArea) {
             var timeline = gsap.timeline();
-            timeline.to(downloadCtaWrapper, {
+            timeline.to(imgPropOpenerWrapper, {
+              y: "0%",
+              ease: "expo",
+              duration: 0.5
+            }).to(downloadCtaWrapper, {
               opacity: "0%",
               ease: "expo",
               duration: 2
@@ -1452,4 +1460,4 @@ module.exports = __webpack_require__.p + "82df1286e25e518ffc6c.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle62d6cf36a0e5d5724541.js.map
+//# sourceMappingURL=bundle5b80c615979804a0cd14.js.map
