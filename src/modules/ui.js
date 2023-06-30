@@ -6,6 +6,7 @@ import { nav } from "./ui-modules/nav";
 import downloadIcon from "../assets/download.svg";
 import upIcon from "../assets/up-arrow.svg";
 
+
 class UI {
   constructor() {
     this.mainWrapper = element.divCreator("class", "main-wrapper", document.body);
@@ -80,11 +81,8 @@ class UI {
 
         if (isMouseOutsideArea) {
           const timeline = gsap.timeline();
-          timeline.to(
-            downloadCtaWrapper,
-            { opacity: "0%", ease: "expo", duration: 2 }
-            );
-            downloadCtaWrapper.style.display = "none";
+          timeline.to(downloadCtaWrapper, { opacity: "0%", ease: "expo", duration: 2 });
+          downloadCtaWrapper.style.display = "none";
         }
       });
     });

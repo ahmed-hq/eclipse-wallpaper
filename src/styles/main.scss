@@ -6,7 +6,7 @@ $fourthBlackColor: hsla(0, 0%, 21%, 1);
 $whiteColor: hsla(0, 0%, 98%, 1);
 
 @mixin heroLinearGradient {
-  background: -webkit-linear-gradient(90deg, $blackColor,hsla(0, 0%, 88%, 0));
+  background: -webkit-linear-gradient(90deg, $blackColor, hsla(0, 0%, 88%, 0));
 }
 @mixin displayLinearGradient {
   background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));
@@ -30,8 +30,6 @@ $whiteColor: hsla(0, 0%, 98%, 1);
   padding: 0%;
 }
 
-
-
 body {
   width: 100vw;
   background-color: $blackColor;
@@ -40,12 +38,10 @@ body {
   text-align: center;
   overflow-x: hidden;
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     width: 0px;
   }
 }
-
-
 
 h1 {
   font-size: 11rem;
@@ -72,7 +68,8 @@ h2 {
   position: absolute;
   z-index: -1;
 }
-#black-overlay, #black_gradient-overlay{
+#black-overlay,
+#black_gradient-overlay {
   position: absolute;
   z-index: -1;
   width: 100%;
@@ -85,7 +82,7 @@ h2 {
 }
 
 #black_gradient-overlay {
-  @include heroLinearGradient()
+  @include heroLinearGradient();
 }
 
 #hero-display {
@@ -97,10 +94,10 @@ h2 {
   @include subDisplayLinearGradient();
 }
 
-.main_cta, .download_cta{
+.main_cta,
+.download_cta {
   overflow: hidden;
 
-  
   border: 1px solid;
   border-radius: 160px;
   width: 10rem;
@@ -119,7 +116,7 @@ h2 {
   gap: 4rem;
 }
 
-.gallery-section{
+.gallery-section {
   width: 100vw;
 }
 
@@ -133,15 +130,14 @@ h2 {
   @include flexCenter();
 }
 
-.page-padding{
+.page-padding {
   padding: 7.5rem 4rem;
 }
 
-.gallery-wrapper{
+.gallery-wrapper {
   display: flex;
   flex-direction: column;
   gap: 4rem;
-
 }
 
 .img-wrapper {
@@ -152,7 +148,7 @@ h2 {
   border: 3px solid $secondaryBlackColor;
 }
 
-.img_prop-wrapper{
+.img_prop-wrapper {
   position: relative;
   margin: 0rem auto;
   padding: 3rem;
@@ -160,21 +156,19 @@ h2 {
   flex-direction: column;
   gap: 5rem;
   align-self: end;
-  
 }
 
-.download_cta-wrapper{
+.download_cta-wrapper {
   display: none;
   position: absolute;
   top: -13rem;
   padding-bottom: 3rem;
 }
 
-.download_cta{
-
+.download_cta {
 }
 
-.load_more-btn{
+.load_more-btn {
   background-color: $tertiaryBlackColor;
   border: none;
   border-radius: 16px;
@@ -186,12 +180,12 @@ h2 {
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
   transition: 2s;
-  
+
   &:hover {
     background-color: $fourthBlackColor;
   }
   &:active {
     background-color: $tertiaryBlackColor;
-    transition: .5s;
+    transition: 0.5s;
   }
 }

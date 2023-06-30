@@ -43,7 +43,8 @@ h2 {
   z-index: -1;
 }
 
-#black-overlay, #black_gradient-overlay {
+#black-overlay,
+#black_gradient-overlay {
   position: absolute;
   z-index: -1;
   width: 100%;
@@ -73,7 +74,8 @@ h2 {
   -webkit-text-fill-color: transparent;
 }
 
-.main_cta, .download_cta {
+.main_cta,
+.download_cta {
   overflow: hidden;
   border: 1px solid;
   border-radius: 160px;
@@ -167,4 +169,4 @@ h2 {
 .load_more-btn:active {
   background-color: hsl(0, 0%, 15%);
   transition: 0.5s;
-}/*# sourceMappingURL=main.css.map */
+} /*# sourceMappingURL=main.css.map */
