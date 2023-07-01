@@ -5,7 +5,7 @@ class API {
 
   async getRandomPhotos() {
     const body = document.body;
-    const res = await fetch("https://api.unsplash.com/photos/random?count=30&collections=4369173", {
+    const res = await fetch("https://api.unsplash.com/photos/random?count=20&collections=l_pyR0TV5DU,9yejf7rOW5A", {
       method: "GET",
       headers: {
         Authorization: `Client-ID ${process.env.ACCESS_KEY}`,
