@@ -5,6 +5,8 @@ import { hero } from "./ui-modules/hero";
 import { nav } from "./ui-modules/nav";
 import downloadIcon from "../assets/download.svg";
 import upIcon from "../assets/up-arrow.svg";
+import ctaArrow from "../assets/cta-arrow.svg";
+
 
 class UI {
   constructor() {
@@ -19,17 +21,22 @@ class UI {
     hero.bgVideo(heroSection);
     hero.videoOverlay(heroSection);
     hero.displayHeader(heroSection);
-    hero.createMainCta(heroSection);
-    animation.mainCtaHoverAnimation();
+
+    element.createCta('main_cta', ctaArrow, heroSection);
+    document.querySelector('.main_cta').addEventListener('click', () => {
+      animation.scrollInto(this.gallerySection)
+    })
+    animation.ctaHoverAnimation('.main_cta');
+
     animation.heroAnimation();
   }
-
+  
   createNavbar() {
     this.navbar = element.divCreator("class", "navbar", this.gallerySection);
     nav.createLogo(this.navbar);
     animation.navScrollAnimation(this.navbar);
   }
-
+  
   createGallerySection() {
     this.gallerySection = element.sectionCreator("class", "gallery-section", this.mainWrapper);
     this.createNavbar();
@@ -50,9 +57,15 @@ class UI {
 
       const imgPropWrapper = element.divCreator("class", "img_prop-wrapper", imgWrapper);
 
+
       const downloadCtaWrapper = element.divCreator("class", "download_cta-wrapper", imgPropWrapper);
       const downloadCta = element.divCreator("class", "download_cta", downloadCtaWrapper);
-      element.imgCreator(downloadIcon, downloadCta);
+      const arrowWrapper = element.divCreator("class", "arrow-wrapper", downloadCta);
+      element.imgCreator(downloadIcon, arrowWrapper);
+      element.imgCreator(downloadIcon, arrowWrapper);
+
+      animation.ctaHoverAnimation('.download_cta');
+
       downloadCta.addEventListener("click", () => {
         api.downloadPhotos(photoName, downloadURL);
       });
@@ -60,6 +73,8 @@ class UI {
       const imgPropOpenerWrapper = element.divCreator("class", "img_prop_opener-wrapper", imgPropWrapper);
       element.imgCreator(upIcon, imgPropOpenerWrapper);
 
+
+      // img prop opener hover animation
       imgPropWrapper.addEventListener("mouseenter", () => {
         downloadCtaWrapper.style.display = "block";
 

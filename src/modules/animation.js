@@ -38,21 +38,27 @@ class Animation {
     });
   }
 
-  mainCtaHoverAnimation() {
-    const btn = document.querySelector(".main_cta");
-    const children = btn.children;
-    for (let i = 0; i < children.length; i++) {
-      children[i].style.pointerEvents = "none";
-    }
-    btn.addEventListener("mouseover", () => {
-      const timeline = gsap.timeline();
-      timeline.to(btn.children, { y: "65%", ease: "expo", duration: 2 });
-    });
+  ctaHoverAnimation(attName) {
+    const btns = document.querySelectorAll(`${attName}`);
+    btns.forEach(btn => {
+      const children = btn.children;
+      for (let i = 0; i < children.length; i++) {
+        children[i].style.pointerEvents = "none";
+      }
+      btn.addEventListener("mouseover", () => {
+        const timeline = gsap.timeline();
+        timeline.to(btn.children, { y: "65%", ease: "expo", duration: 2 });
+      });
+  
+      btn.addEventListener("mouseout", () => {
+        const timeline = gsap.timeline();
+        timeline.to(btn.children, { y: "0%", ease: "expo", duration: 1 });
+      });
+    })
+  }
 
-    btn.addEventListener("mouseout", () => {
-      const timeline = gsap.timeline();
-      timeline.to(btn.children, { y: "0%", ease: "expo", duration: 1 });
-    });
+  scrollInto(target){
+      target.scrollIntoView({ behavior: "smooth" });
   }
 
   navScrollAnimation(target) {

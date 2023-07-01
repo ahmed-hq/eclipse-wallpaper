@@ -97,15 +97,20 @@ h2 {
 .main_cta,
 .download_cta {
   overflow: hidden;
-
+position: relative;
   border: 1px solid;
   border-radius: 160px;
   width: 10rem;
   height: 10rem;
   @include flexCenter();
+
+  &:active {
+    background-color: hsla(0, 0%, 88%, 0.5);
+    transition: 2s;
+  }
 }
 
-.main_cta > * {
+.main_cta > *, .download_cta > *  {
   position: absolute;
   bottom: 2.7rem;
 }
@@ -165,8 +170,6 @@ h2 {
   padding-bottom: 3rem;
 }
 
-.download_cta {
-}
 
 .load_more-btn {
   background-color: $tertiaryBlackColor;

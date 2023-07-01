@@ -108,28 +108,37 @@ var Animation = /*#__PURE__*/function () {
       });
     }
   }, {
-    key: "mainCtaHoverAnimation",
-    value: function mainCtaHoverAnimation() {
-      var btn = document.querySelector(".main_cta");
-      var children = btn.children;
-      for (var i = 0; i < children.length; i++) {
-        children[i].style.pointerEvents = "none";
-      }
-      btn.addEventListener("mouseover", function () {
-        var timeline = gsap.timeline();
-        timeline.to(btn.children, {
-          y: "65%",
-          ease: "expo",
-          duration: 2
+    key: "ctaHoverAnimation",
+    value: function ctaHoverAnimation(attName) {
+      var btns = document.querySelectorAll("".concat(attName));
+      btns.forEach(function (btn) {
+        var children = btn.children;
+        for (var i = 0; i < children.length; i++) {
+          children[i].style.pointerEvents = "none";
+        }
+        btn.addEventListener("mouseover", function () {
+          var timeline = gsap.timeline();
+          timeline.to(btn.children, {
+            y: "65%",
+            ease: "expo",
+            duration: 2
+          });
+        });
+        btn.addEventListener("mouseout", function () {
+          var timeline = gsap.timeline();
+          timeline.to(btn.children, {
+            y: "0%",
+            ease: "expo",
+            duration: 1
+          });
         });
       });
-      btn.addEventListener("mouseout", function () {
-        var timeline = gsap.timeline();
-        timeline.to(btn.children, {
-          y: "0%",
-          ease: "expo",
-          duration: 1
-        });
+    }
+  }, {
+    key: "scrollInto",
+    value: function scrollInto(target) {
+      target.scrollIntoView({
+        behavior: "smooth"
       });
     }
   }, {
@@ -303,6 +312,15 @@ var Element = /*#__PURE__*/function () {
       myVideoSrc.setAttribute("type", "video/mp4");
       myVideo.appendChild(myVideoSrc);
     }
+  }, {
+    key: "createCta",
+    value: function createCta(attName, iconSrc, parent) {
+      var mainCtaWrapper = element.divCreator("class", "".concat(attName, "-wrapper"), parent);
+      var mainCta = element.divCreator("class", "".concat(attName), mainCtaWrapper);
+      var arrowWrapper = element.divCreator("class", "arrow-wrapper", mainCta);
+      element.imgCreator("".concat(iconSrc), arrowWrapper);
+      element.imgCreator("".concat(iconSrc), arrowWrapper);
+    }
   }]);
   return Element;
 }();
@@ -324,14 +342,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./element */ "./src/modules/ui-modules/element.js");
 /* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui */ "./src/modules/ui.js");
 /* harmony import */ var _assets_eclipse_bg_v2_mp4__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/eclipse-bg-v2.mp4 */ "./src/assets/eclipse-bg-v2.mp4");
-/* harmony import */ var _assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/cta-arrow.svg */ "./src/assets/cta-arrow.svg");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-
 
 
 
@@ -371,20 +387,6 @@ var Hero = /*#__PURE__*/function () {
       heroSubDisplay.setAttribute("id", "hero-sub_display");
       heroSubDisplay.textContent = "the Essence of Black in Minimal Wallpapers";
       heroContentWrapper.appendChild(heroSubDisplay);
-    }
-  }, {
-    key: "createMainCta",
-    value: function createMainCta(parent) {
-      var mainCtaWrapper = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "main_cta-wrapper", parent);
-      var mainCta = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "main_cta", mainCtaWrapper);
-      var arrowWrapper = _element__WEBPACK_IMPORTED_MODULE_0__.element.divCreator("class", "arrow-wrapper", mainCta);
-      _element__WEBPACK_IMPORTED_MODULE_0__.element.imgCreator(_assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__, arrowWrapper);
-      _element__WEBPACK_IMPORTED_MODULE_0__.element.imgCreator(_assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_3__, arrowWrapper);
-      mainCta.addEventListener("click", function () {
-        _ui__WEBPACK_IMPORTED_MODULE_1__.ui.gallerySection.scrollIntoView({
-          behavior: "smooth"
-        });
-      });
     }
   }]);
   return Hero;
@@ -449,6 +451,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_modules_nav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ui-modules/nav */ "./src/modules/ui-modules/nav.js");
 /* harmony import */ var _assets_download_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/download.svg */ "./src/assets/download.svg");
 /* harmony import */ var _assets_up_arrow_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../assets/up-arrow.svg */ "./src/assets/up-arrow.svg");
+/* harmony import */ var _assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../assets/cta-arrow.svg */ "./src/assets/cta-arrow.svg");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -458,6 +461,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
 
 
 
@@ -476,12 +480,16 @@ var UI = /*#__PURE__*/function () {
   _createClass(UI, [{
     key: "createHeroSection",
     value: function createHeroSection() {
+      var _this = this;
       var heroSection = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.sectionCreator("class", "hero-section", this.mainWrapper);
       _ui_modules_hero__WEBPACK_IMPORTED_MODULE_3__.hero.bgVideo(heroSection);
       _ui_modules_hero__WEBPACK_IMPORTED_MODULE_3__.hero.videoOverlay(heroSection);
       _ui_modules_hero__WEBPACK_IMPORTED_MODULE_3__.hero.displayHeader(heroSection);
-      _ui_modules_hero__WEBPACK_IMPORTED_MODULE_3__.hero.createMainCta(heroSection);
-      _animation__WEBPACK_IMPORTED_MODULE_1__.animation.mainCtaHoverAnimation();
+      _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.createCta('main_cta', _assets_cta_arrow_svg__WEBPACK_IMPORTED_MODULE_7__, heroSection);
+      document.querySelector('.main_cta').addEventListener('click', function () {
+        _animation__WEBPACK_IMPORTED_MODULE_1__.animation.scrollInto(_this.gallerySection);
+      });
+      _animation__WEBPACK_IMPORTED_MODULE_1__.animation.ctaHoverAnimation('.main_cta');
       _animation__WEBPACK_IMPORTED_MODULE_1__.animation.heroAnimation();
     }
   }, {
@@ -502,24 +510,29 @@ var UI = /*#__PURE__*/function () {
   }, {
     key: "appendPhotos",
     value: function appendPhotos(data) {
-      var _this = this;
+      var _this2 = this;
       data.map(function (photo) {
         var url = photo.urls.regular;
         var photoName = photo.alt_description;
         var downloadURL = photo.urls.full;
-        var imgWrapper = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "img-wrapper", _this.galleryWrapper);
+        var imgWrapper = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "img-wrapper", _this2.galleryWrapper);
         imgWrapper.style.background = "url(".concat(url, ") no-repeat");
         imgWrapper.style.backgroundSize = "cover";
         imgWrapper.style.backgroundPosition = "center";
         var imgPropWrapper = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "img_prop-wrapper", imgWrapper);
         var downloadCtaWrapper = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "download_cta-wrapper", imgPropWrapper);
         var downloadCta = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "download_cta", downloadCtaWrapper);
-        _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.imgCreator(_assets_download_svg__WEBPACK_IMPORTED_MODULE_5__, downloadCta);
+        var arrowWrapper = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "arrow-wrapper", downloadCta);
+        _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.imgCreator(_assets_download_svg__WEBPACK_IMPORTED_MODULE_5__, arrowWrapper);
+        _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.imgCreator(_assets_download_svg__WEBPACK_IMPORTED_MODULE_5__, arrowWrapper);
+        _animation__WEBPACK_IMPORTED_MODULE_1__.animation.ctaHoverAnimation('.download_cta');
         downloadCta.addEventListener("click", function () {
           _api__WEBPACK_IMPORTED_MODULE_0__.api.downloadPhotos(photoName, downloadURL);
         });
         var imgPropOpenerWrapper = _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.divCreator("class", "img_prop_opener-wrapper", imgPropWrapper);
         _ui_modules_element__WEBPACK_IMPORTED_MODULE_2__.element.imgCreator(_assets_up_arrow_svg__WEBPACK_IMPORTED_MODULE_6__, imgPropOpenerWrapper);
+
+        // img prop opener hover animation
         imgPropWrapper.addEventListener("mouseenter", function () {
           downloadCtaWrapper.style.display = "block";
           var timeline = gsap.timeline();
@@ -557,7 +570,7 @@ var UI = /*#__PURE__*/function () {
   }, {
     key: "createLoadBtn",
     value: function createLoadBtn() {
-      var _this2 = this;
+      var _this3 = this;
       var Btn = document.createElement("button");
       Btn.setAttribute("class", "load_more-btn");
       Btn.style.display = "block";
@@ -570,9 +583,9 @@ var UI = /*#__PURE__*/function () {
               _context.next = 2;
               return _api__WEBPACK_IMPORTED_MODULE_0__.api.getRandomPhotos();
             case 2:
-              _this2.appendPhotos(_api__WEBPACK_IMPORTED_MODULE_0__.api.randomPhotosAPI);
+              _this3.appendPhotos(_api__WEBPACK_IMPORTED_MODULE_0__.api.randomPhotosAPI);
               Btn.style.display = "none";
-              _this2.createLoadBtn();
+              _this3.createLoadBtn();
             case 5:
             case "end":
               return _context.stop();
@@ -686,6 +699,7 @@ h2 {
 .main_cta,
 .download_cta {
   overflow: hidden;
+  position: relative;
   border: 1px solid;
   border-radius: 160px;
   width: 10rem;
@@ -694,8 +708,13 @@ h2 {
   justify-content: center;
   align-items: center;
 }
+.main_cta:active,
+.download_cta:active {
+  background-color: hsla(0, 0%, 88%, 0.5);
+  transition: 2s;
+}
 
-.main_cta > * {
+.main_cta > *, .download_cta > * {
   position: absolute;
   bottom: 2.7rem;
 }
@@ -778,7 +797,7 @@ h2 {
 .load_more-btn:active {
   background-color: hsl(0, 0%, 15%);
   transition: 0.5s;
-}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA2BA;EACE,UAAA;EACA,WAAA;AA1BF;;AA6BA;EACE,YAAA;EACA,gCAlCW;EAmCX,sBA9BW;EA+BX,qCAAA;EACA,kBAAA;EACA,kBAAA;AA1BF;AA4BE;EACE,UAAA;AA1BJ;;AA8BA;EACE,gBAAA;EACA,gBAAA;AA3BF;;AA8BA;EACE,kBAAA;EACA,gBAAA;AA3BF;;AA8BA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EAxCA,aAAA;EACA,uBAAA;EACA,mBAAA;AAcF;;AA4BA;EACE,kBAAA;EACA,WAAA;AAzBF;;AA2BA;;EAEE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AAxBF;;AA2BA;EACE,gCA/EW;EAgFX,YAAA;AAxBF;;AA2BA;EA3EE,+EAAA;AAoDF;;AA2BA;EACE,gBAAA;EA7EA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAsDF;;AAwBA;EACE,gBAAA;EA5EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAwDF;;AAsBA;;EAEE,gBAAA;EAEA,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EAjFA,aAAA;EACA,uBAAA;EACA,mBAAA;AA8DF;;AAqBA;EACE,kBAAA;EACA,cAAA;AAlBF;;AAqBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAlBF;;AAqBA;EACE,YAAA;AAlBF;;AAqBA;EACE,gBAAA;EACA,UAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCA9HmB;EAoBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AAyFF;;AAmBA;EACE,oBAAA;AAhBF;;AAmBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAhBF;;AAmBA;EACE,aAAA;EACA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAhBF;;AAmBA;EACE,kBAAA;EACA,iBAAA;EACA,aAAA;EAnIA,aAAA;EACA,uBAAA;EACA,mBAAA;EAmIA,sBAAA;EACA,SAAA;EACA,eAAA;AAdF;;AAiBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;EACA,oBAAA;AAdF;;AAoBA;EACE,iCAzKmB;EA0KnB,YAAA;EACA,mBAAA;EACA,sBAzKW;EA0KX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;EACA,cAAA;AAjBF;AAmBE;EACE,iCArLe;AAoKnB;AAmBE;EACE,iCAzLiB;EA0LjB,gBAAA;AAjBJ","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n$fourthBlackColor: hsla(0, 0%, 21%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor, hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar {\n    width: 0px;\n  }\n}\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay,\n#black_gradient-overlay {\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient();\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta,\n.download_cta {\n  overflow: hidden;\n\n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n}\n\n.main_cta > * {\n  position: absolute;\n  bottom: 2.7rem;\n}\n\n.arrow-wrapper {\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n}\n\n.gallery-section {\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  z-index: 1;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  @include flexCenter();\n}\n\n.page-padding {\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper {\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n}\n\n.img-wrapper {\n  display: flex;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper {\n  position: relative;\n  margin: 0rem auto;\n  padding: 3rem;\n  @include flexCenter();\n  flex-direction: column;\n  gap: 5rem;\n  align-self: end;\n}\n\n.download_cta-wrapper {\n  display: none;\n  position: absolute;\n  top: -13rem;\n  padding-bottom: 3rem;\n}\n\n.download_cta {\n}\n\n.load_more-btn {\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n  transition: 2s;\n\n  &:hover {\n    background-color: $fourthBlackColor;\n  }\n  &:active {\n    background-color: $tertiaryBlackColor;\n    transition: 0.5s;\n  }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/main.scss"],"names":[],"mappings":"AA2BA;EACE,UAAA;EACA,WAAA;AA1BF;;AA6BA;EACE,YAAA;EACA,gCAlCW;EAmCX,sBA9BW;EA+BX,qCAAA;EACA,kBAAA;EACA,kBAAA;AA1BF;AA4BE;EACE,UAAA;AA1BJ;;AA8BA;EACE,gBAAA;EACA,gBAAA;AA3BF;;AA8BA;EACE,kBAAA;EACA,gBAAA;AA3BF;;AA8BA;EACE,kBAAA;EACA,gBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EAxCA,aAAA;EACA,uBAAA;EACA,mBAAA;AAcF;;AA4BA;EACE,kBAAA;EACA,WAAA;AAzBF;;AA2BA;;EAEE,kBAAA;EACA,WAAA;EACA,WAAA;EACA,YAAA;AAxBF;;AA2BA;EACE,gCA/EW;EAgFX,YAAA;AAxBF;;AA2BA;EA3EE,+EAAA;AAoDF;;AA2BA;EACE,gBAAA;EA7EA,iFAAA;EACA,6BAAA;EACA,oCAAA;AAsDF;;AAwBA;EACE,gBAAA;EA5EA,gFAAA;EACA,6BAAA;EACA,oCAAA;AAwDF;;AAsBA;;EAEE,gBAAA;EACF,kBAAA;EACE,iBAAA;EACA,oBAAA;EACA,YAAA;EACA,aAAA;EAjFA,aAAA;EACA,uBAAA;EACA,mBAAA;AA+DF;AAmBE;;EACE,uCAAA;EACA,cAAA;AAhBJ;;AAoBA;EACE,kBAAA;EACA,cAAA;AAjBF;;AAoBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAjBF;;AAoBA;EACE,YAAA;AAjBF;;AAoBA;EACE,gBAAA;EACA,UAAA;EACA,MAAA;EACA,YAAA;EACA,gBAAA;EACA,iCAnImB;EAoBnB,aAAA;EACA,uBAAA;EACA,mBAAA;AA+FF;;AAkBA;EACE,oBAAA;AAfF;;AAkBA;EACE,aAAA;EACA,sBAAA;EACA,SAAA;AAfF;;AAkBA;EACE,aAAA;EACA,WAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AAfF;;AAkBA;EACE,kBAAA;EACA,iBAAA;EACA,aAAA;EAxIA,aAAA;EACA,uBAAA;EACA,mBAAA;EAwIA,sBAAA;EACA,SAAA;EACA,eAAA;AAbF;;AAgBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;EACA,oBAAA;AAbF;;AAiBA;EACE,iCA5KmB;EA6KnB,YAAA;EACA,mBAAA;EACA,sBA5KW;EA6KX,qCAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,mBAAA;EACA,sBAAA;EACA,cAAA;AAdF;AAgBE;EACE,iCAxLe;AA0KnB;AAgBE;EACE,iCA5LiB;EA6LjB,gBAAA;AAdJ","sourcesContent":["$blackColor: hsla(0, 0%, 4%, 1);\n$secondaryBlackColor: hsla(0, 0%, 6%, 1);\n$tertiaryBlackColor: hsla(0, 0%, 15%, 1);\n$fourthBlackColor: hsla(0, 0%, 21%, 1);\n\n$whiteColor: hsla(0, 0%, 98%, 1);\n\n@mixin heroLinearGradient {\n  background: -webkit-linear-gradient(90deg, $blackColor, hsla(0, 0%, 88%, 0));\n}\n@mixin displayLinearGradient {\n  background: -webkit-linear-gradient(240deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n@mixin subDisplayLinearGradient {\n  background: -webkit-linear-gradient(60deg, hsla(0, 0%, 88%, 1), hsla(0, 0%, 88%, 0));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n\n@mixin flexCenter {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n* {\n  margin: 0%;\n  padding: 0%;\n}\n\nbody {\n  width: 100vw;\n  background-color: $blackColor;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  text-align: center;\n  overflow-x: hidden;\n\n  &::-webkit-scrollbar {\n    width: 0px;\n  }\n}\n\nh1 {\n  font-size: 11rem;\n  font-weight: 300;\n}\n\nh2 {\n  font-size: 4.75rem;\n  font-weight: 100;\n}\n\n.hero-section {\n  position: relative;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  gap: 6.62rem;\n  height: 100vh;\n  width: 100vw;\n  @include flexCenter();\n}\n\n#hero-video {\n  position: absolute;\n  z-index: -1;\n}\n#black-overlay,\n#black_gradient-overlay {\n  position: absolute;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n}\n\n#black-overlay {\n  background-color: $blackColor;\n  opacity: 85%;\n}\n\n#black_gradient-overlay {\n  @include heroLinearGradient();\n}\n\n#hero-display {\n  max-width: 55rem;\n  @include displayLinearGradient();\n}\n#hero-sub_display {\n  max-width: 55rem;\n  @include subDisplayLinearGradient();\n}\n\n.main_cta,\n.download_cta {\n  overflow: hidden;\nposition: relative;\n  border: 1px solid;\n  border-radius: 160px;\n  width: 10rem;\n  height: 10rem;\n  @include flexCenter();\n\n  &:active {\n    background-color: hsla(0, 0%, 88%, 0.5);\n    transition: 2s;\n  }\n}\n\n.main_cta > *, .download_cta > *  {\n  position: absolute;\n  bottom: 2.7rem;\n}\n\n.arrow-wrapper {\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n}\n\n.gallery-section {\n  width: 100vw;\n}\n\n.navbar {\n  position: sticky;\n  z-index: 1;\n  top: 0;\n  width: 100vw;\n  height: 3.375rem;\n  background-color: $tertiaryBlackColor;\n  @include flexCenter();\n}\n\n.page-padding {\n  padding: 7.5rem 4rem;\n}\n\n.gallery-wrapper {\n  display: flex;\n  flex-direction: column;\n  gap: 4rem;\n}\n\n.img-wrapper {\n  display: flex;\n  width: 100%;\n  aspect-ratio: 16/9;\n  border-radius: 30px;\n  border: 3px solid $secondaryBlackColor;\n}\n\n.img_prop-wrapper {\n  position: relative;\n  margin: 0rem auto;\n  padding: 3rem;\n  @include flexCenter();\n  flex-direction: column;\n  gap: 5rem;\n  align-self: end;\n}\n\n.download_cta-wrapper {\n  display: none;\n  position: absolute;\n  top: -13rem;\n  padding-bottom: 3rem;\n}\n\n\n.load_more-btn {\n  background-color: $tertiaryBlackColor;\n  border: none;\n  border-radius: 16px;\n  color: $whiteColor;\n  font-family: \"Montserrat\", sans-serif;\n  font-size: 2rem;\n  font-weight: 100;\n  text-align: center;\n  padding-top: 1.7rem;\n  padding-bottom: 1.7rem;\n  transition: 2s;\n\n  &:hover {\n    background-color: $fourthBlackColor;\n  }\n  &:active {\n    background-color: $tertiaryBlackColor;\n    transition: 0.5s;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1460,4 +1479,4 @@ module.exports = __webpack_require__.p + "82df1286e25e518ffc6c.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle5b80c615979804a0cd14.js.map
+//# sourceMappingURL=bundle4196666c547e332dd10b.js.map

@@ -1,7 +1,6 @@
 import { element } from "./element";
 import { ui } from "../ui";
 import bGVideoSrc from "../../assets/eclipse-bg-v2.mp4";
-import ctaArrow from "../../assets/cta-arrow.svg";
 
 class Hero {
   constructor() {}
@@ -39,19 +38,6 @@ class Hero {
     heroContentWrapper.appendChild(heroSubDisplay);
   }
 
-  createMainCta(parent) {
-    const mainCtaWrapper = element.divCreator("class", "main_cta-wrapper", parent);
-    const mainCta = element.divCreator("class", "main_cta", mainCtaWrapper);
-    const arrowWrapper = element.divCreator("class", "arrow-wrapper", mainCta);
-
-    element.imgCreator(ctaArrow, arrowWrapper);
-    element.imgCreator(ctaArrow, arrowWrapper);
-
-
-    mainCta.addEventListener("click", () => {
-      ui.gallerySection.scrollIntoView({ behavior: "smooth" });
-    });
-  }
 }
 
 const hero = new Hero();
